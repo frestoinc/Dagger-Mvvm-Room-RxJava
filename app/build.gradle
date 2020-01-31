@@ -13,12 +13,14 @@ android {
         value = 1
     }
     def versionMajor = 1
-    def versionPatch = versionProps['VERSION_PATCH'].toInteger() + value
-    def versionBuild = versionProps['VERSION_BUILD'].toInteger() + 1
+    def versionPatch = versionProps['VERSION_PATCH'].toInteger() + 1
+    def versionBuild = versionProps['VERSION_BUILD'].toInteger()
     def versionNumber = versionProps['VERSION_NUMBER'].toInteger() + value
 
-    def modulo = versionBuild % 10
-    versionPatch += modulo
+    if (versionPatch % 100 == 0) {
+        versionBuild += 1
+        versionPatch = 1
+    }
 
     versionProps['VERSION_PATCH'] = versionPatch.toString()
     versionProps['VERSION_BUILD'] = versionBuild.toString()
