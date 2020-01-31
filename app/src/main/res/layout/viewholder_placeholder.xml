@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingTop="21dp"
+        android:paddingEnd="36dp"
+        android:paddingBottom="21dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/vph_image"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/vph_text1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"
+                android:contentDescription="@null"
+                android:scaleType="fitXY" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/vph_text1"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginStart="16dp"
+            app:cardBackgroundColor="@android:color/darker_gray"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/vph_text2"
+            app:layout_constraintStart_toEndOf="@+id/vph_image"
+            app:layout_constraintTop_toTopOf="@+id/vph_image"
+            app:layout_constraintWidth_max="100dp"
+            app:layout_constraintWidth_min="100dp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/vph_text2"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@android:color/darker_gray"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/vph_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/vph_image"
+            app:layout_constraintTop_toBottomOf="@+id/vph_text1" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="36dp"
+        android:paddingBottom="16dp">
+
+        <ImageView
+            android:id="@+id/vhd_image"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/vhd_text1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:fontFamily="@font/roboto_regular"
+            android:textAlignment="center"
+            android:id="@+id/vhd_text1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/testtext"
+            android:textColor="@color/text_color"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/vhd_text2"
+            app:layout_constraintStart_toEndOf="@+id/vhd_image"
+            app:layout_constraintTop_toTopOf="@+id/vhd_image"
+            app:layout_constraintWidth_max="100dp"
+            app:layout_constraintWidth_min="100dp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:fontFamily="@font/roboto_regular"
+            android:textAlignment="center"
+            android:id="@+id/vhd_text2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/testtext"
+            android:textColor="@color/text_color"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/vhd_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/vhd_image"
+            app:layout_constraintTop_toBottomOf="@+id/vhd_text1" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
