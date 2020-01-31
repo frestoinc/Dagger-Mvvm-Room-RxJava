@@ -6,7 +6,6 @@ import android.view.MenuItem;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
@@ -14,12 +13,24 @@ import androidx.databinding.ViewDataBinding;
 import com.frestoinc.gojekassignment.api.network.LoaderUI;
 import com.frestoinc.gojekassignment.api.network.NetworkLoader;
 import com.frestoinc.gojekassignment.api.network.NetworkReceiver;
+import com.frestoinc.gojekassignment.di.module.ViewModelProviderFactory;
+import com.google.gson.Gson;
+
+import javax.inject.Inject;
+
+import dagger.android.support.DaggerAppCompatActivity;
 
 /**
  * Created by frestoinc on 31,January,2020 for GoJekAssignment.
  */
 public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseViewModel>
-    extends AppCompatActivity implements NetworkLoader, NetworkReceiver {
+        extends DaggerAppCompatActivity implements NetworkLoader, NetworkReceiver {
+
+  @Inject
+  ViewModelProviderFactory factory;
+
+  @Inject
+  Gson gson;
 
   public abstract @LayoutRes
   int getLayoutId();
@@ -72,5 +83,7 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     return super.onOptionsItemSelected(item);
   }
 
-
+  public ViewModelProviderFactory getFactory() {
+    return factory;
+  }
 }

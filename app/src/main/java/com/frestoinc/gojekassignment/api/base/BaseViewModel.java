@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.frestoinc.gojekassignment.api.base.rx.SchedulerProvider;
 
+import javax.inject.Inject;
+
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
@@ -13,12 +15,12 @@ public abstract class BaseViewModel extends ViewModel {
 
   private CompositeDisposable compositeDisposable;
 
-  private final SchedulerProvider schedulerProvider;
+  @Inject
+  public SchedulerProvider schedulerProvider;
 
   public abstract void setError(Throwable e);
 
-  public BaseViewModel(SchedulerProvider schedulerProvider) {
-    this.schedulerProvider = schedulerProvider;
+  public BaseViewModel() {
     this.compositeDisposable = new CompositeDisposable();
   }
 
