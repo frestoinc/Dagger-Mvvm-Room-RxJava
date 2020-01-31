@@ -3,13 +3,6 @@
   <component name="PDMPlugin">
     <option name="scanFilesBeforeCheckin" value="true" />
   </component>
-  <component name="Preferences">
-    <option name="enabledModifiers">
-      <list>
-        <option value="uk.co.ben_gibson.git.link.Url.Modifier.HttpsUrlModifier" />
-      </list>
-    </option>
-  </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
