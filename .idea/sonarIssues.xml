@@ -18,7 +18,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/GoJekAssignment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/RepoService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/base/BaseActivity.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/base/BaseViewHolder.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/base/BaseViewModel.java">
           <value>
             <set />
           </value>
@@ -29,6 +54,86 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/listener/RowListener.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/manager/AppDataManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/manager/DataManager.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/model.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/rest/AppGithubRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/rest/AppGithubRespository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/rest/GithubApi.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/rest/GithubModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/rest/GithubRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/rest/GithubService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/rest/GithubUrl.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/rest/RepoService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/rest/remote/GithubApi.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/rest/remote/GithubModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/rest/repository/AppGithubRepository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/rest/repository/AppGithubRespository.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/api/rest/repository/GithubRepository.java">
           <value>
             <set />
           </value>
@@ -48,12 +153,102 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/data/GithubModel.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/data/model/GithubModel.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/ActivityComponent.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/AppComponent.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/AppContextModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/ViewModelBuilder.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/ViewModelFactoryBuilder.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/module/ActivityModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/module/AdapterModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/module/AppModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/module/ContextModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/module/GithubModule.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/module/ViewModelProviderFactory.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/qualifier/ActivityContext.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/qualifier/AppContext.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/scope/ActivityContext.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/model/GithubModel.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/ui/MainActivity.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/ui/MainAdapter.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/ui/MainViewModel.java">
           <value>
             <set />
           </value>

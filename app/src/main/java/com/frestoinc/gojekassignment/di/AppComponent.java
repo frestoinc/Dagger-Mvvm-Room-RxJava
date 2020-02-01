@@ -15,13 +15,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
  * Created by frestoinc on 31,January,2020 for GoJekAssignment.
  */
 @AppScope
-@Component(modules = {
-        AndroidSupportInjectionModule.class,
-        AppModule.class,
-        ActivityBuilder.class,
-        ViewModelFactoryBuilder.class
-})
-
+@Component(modules = {AppContextModule.class, AppModule.class, AndroidSupportInjectionModule.class, ActivityBuilder.class})
 public interface AppComponent extends AndroidInjector<GoJekAssignment> {
 
     @Component.Builder

@@ -1,6 +1,7 @@
 package com.frestoinc.gojekassignment.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.frestoinc.gojekassignment.BR;
 import com.frestoinc.gojekassignment.R;
 import com.frestoinc.gojekassignment.api.base.BaseActivity;
+import com.frestoinc.gojekassignment.data.GithubModel;
 import com.frestoinc.gojekassignment.databinding.ActivityMainBinding;
 
 import javax.inject.Inject;
@@ -91,7 +93,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
   }
 
   private void initObservers() {
+    observeData();
+  }
 
+  private void observeData() {
+    getViewModel().getSource().observe(this,
+        githubModels -> {
+          for (GithubModel githubModel : githubModels) {
+            Log.e("TAG", "auhtor: " + githubModel.getAuthor());
+          }
+        });
   }
 }
 

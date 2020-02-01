@@ -14,7 +14,6 @@ import com.frestoinc.gojekassignment.api.network.LoaderUI;
 import com.frestoinc.gojekassignment.api.network.NetworkLoader;
 import com.frestoinc.gojekassignment.api.network.NetworkReceiver;
 import com.frestoinc.gojekassignment.di.module.ViewModelProviderFactory;
-import com.google.gson.Gson;
 
 import javax.inject.Inject;
 
@@ -28,9 +27,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
   @Inject
   ViewModelProviderFactory factory;
-
-  @Inject
-  Gson gson;
 
   public abstract @LayoutRes
   int getLayoutId();

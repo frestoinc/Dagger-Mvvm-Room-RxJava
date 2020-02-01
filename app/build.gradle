@@ -169,4 +169,23 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$dagger_version"
     implementation "com.google.dagger:dagger-android-support:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
+
+    /**
+     * Retrofit
+     */
+    def retrofit_version = "2.7.1"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+
+    /**
+     * OkHttp3
+     */
+    /**
+     *  OkHttp3
+     */
+    def okhttp_version = "3.12.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
 }

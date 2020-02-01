@@ -1,12 +1,11 @@
 package com.frestoinc.gojekassignment.di.module;
 
-import android.app.Application;
-import android.content.Context;
-
 import com.frestoinc.gojekassignment.api.base.rx.AppSchedulerProvider;
 import com.frestoinc.gojekassignment.api.base.rx.SchedulerProvider;
+import com.frestoinc.gojekassignment.api.rest.AppGithubRepository;
+import com.frestoinc.gojekassignment.api.rest.GithubApi;
+import com.frestoinc.gojekassignment.api.rest.GithubRepository;
 import com.frestoinc.gojekassignment.di.scope.AppScope;
-import com.google.gson.Gson;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,14 +13,8 @@ import dagger.Provides;
 /**
  * Created by frestoinc on 31,January,2020 for GoJekAssignment.
  */
-@Module
+@Module(includes = GithubModule.class)
 public class AppModule {
-
-    @AppScope
-    @Provides
-    Context provideContext(Application application) {
-        return application;
-    }
 
     @AppScope
     @Provides
@@ -29,9 +22,9 @@ public class AppModule {
         return new AppSchedulerProvider();
     }
 
-    @AppScope
     @Provides
-    Gson provideGson() {
-        return new Gson();
+    @AppScope
+    GithubRepository provideGithubRepository(GithubApi api) {
+        return new AppGithubRepository(api);
     }
 }

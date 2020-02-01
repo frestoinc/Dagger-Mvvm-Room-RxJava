@@ -3,6 +3,7 @@ package com.frestoinc.gojekassignment.api.base;
 import androidx.lifecycle.ViewModel;
 
 import com.frestoinc.gojekassignment.api.base.rx.SchedulerProvider;
+import com.frestoinc.gojekassignment.api.rest.GithubRepository;
 
 import javax.inject.Inject;
 
@@ -13,19 +14,28 @@ import io.reactivex.disposables.CompositeDisposable;
  */
 public abstract class BaseViewModel extends ViewModel {
 
-  private CompositeDisposable compositeDisposable;
+  public abstract void setError(Throwable e);
+
+  @Inject
+  public GithubRepository repository;
 
   @Inject
   public SchedulerProvider schedulerProvider;
 
-  public abstract void setError(Throwable e);
+  private CompositeDisposable compositeDisposable;
 
-  public BaseViewModel() {
+  public BaseViewModel(SchedulerProvider provider, GithubRepository repository) {
     this.compositeDisposable = new CompositeDisposable();
+    this.schedulerProvider = provider;
+    this.repository = repository;
   }
 
   public CompositeDisposable getCompositeDisposable() {
     return compositeDisposable;
+  }
+
+  public GithubRepository getRepository() {
+    return repository;
   }
 
   public SchedulerProvider getSchedulerProvider() {

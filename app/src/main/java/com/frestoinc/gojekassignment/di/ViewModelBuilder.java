@@ -1,7 +1,10 @@
 package com.frestoinc.gojekassignment.di;
 
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.frestoinc.gojekassignment.di.module.ViewModelProviderFactory;
+import com.frestoinc.gojekassignment.di.scope.AppScope;
 import com.frestoinc.gojekassignment.ui.MainViewModel;
 
 import dagger.Binds;
@@ -20,4 +23,7 @@ public abstract class ViewModelBuilder {
     public abstract ViewModel bindMainViewModel(MainViewModel viewModel);
 
 
+    @Binds
+    @AppScope
+    public abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelProviderFactory factory);
 }
