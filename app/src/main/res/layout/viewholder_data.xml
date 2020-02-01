@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List" />
+
+        <variable
+            name="list"
+            type="List&lt;String>" />
+
+        <variable
+            name="view"
+            type="android.view.View" />
+
+        <variable
+            name="innermodel"
+            type="com.frestoinc.gojekassignment.data.GithubModel.GithubInnerModel" />
+
+        <variable
+            name="model"
+            type="com.frestoinc.gojekassignment.data.GithubModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -56,6 +78,7 @@
             app:layout_constraintGuide_end="16dp" />
 
         <ImageView
+            bind:imagePath="@{model.builtBy.get(0).innerAvatar}"
             android:id="@+id/vhd_avatar"
             android:layout_width="32dp"
             android:layout_height="32dp"
@@ -66,6 +89,8 @@
             app:layout_constraintTop_toBottomOf="@+id/vhd_guide5" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:text="@{model.author ?? model.error}"
+            android:visibility="@{model.author != null ? view.VISIBLE : view.GONE}"
             android:fontFamily="@font/roboto_regular"
             android:id="@+id/vhd_author"
             android:layout_width="0dp"
@@ -80,6 +105,8 @@
             app:layout_constraintTop_toBottomOf="@+id/vhd_guide6" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:text="@{model.name ?? model.error}"
+            android:visibility="@{model.name != null ? view.VISIBLE : view.GONE}"
             android:fontFamily="@font/roboto_regular"
             android:id="@+id/vhd_name"
             android:layout_width="0dp"
@@ -94,15 +121,111 @@
             app:layout_constraintStart_toStartOf="@+id/vhd_guide2"
             app:layout_constraintTop_toBottomOf="@+id/vhd_author" />
 
-        <include
-            android:id="@+id/vhd_expandable"
-            layout="@layout/viewholder_expandable"
+        <com.frestoinc.gojekassignment.api.view.ExpandableLayout
+            android:id="@+id/vex_expandable"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            app:expanded="false"
+            app:layout_constraintBottom_toBottomOf="@+id/vhd_guide7"
             app:layout_constraintEnd_toEndOf="@id/vhd_guide4"
             app:layout_constraintStart_toEndOf="@+id/vhd_guide2"
             app:layout_constraintTop_toBottomOf="@+id/vhd_name"
-            app:layout_constraintBottom_toBottomOf="@+id/vhd_guide7" />
+            app:parallax="0.5">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vex_guide1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="8dp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vex_guide2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_end="16dp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/vhd_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pingfang"
+                    android:text="@{model.description ?? model.error}"
+                    android:textColor="@color/text_color"
+                    android:textSize="12sp"
+                    android:visibility="@{model.description != null ? view.VISIBLE : view.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vex_guide1" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/vhd_language"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/ic_dot"
+                    android:drawablePadding="4sp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:text="@{model.language ?? model.error}"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size"
+                    android:visibility="@{model.language != null ? view.VISIBLE : view.GONE}"
+                    app:layout_constraintBottom_toTopOf="@+id/vex_guide2"
+                    app:layout_constraintEnd_toStartOf="@+id/vhd_stars"
+                    app:layout_constraintHorizontal_bias="0.08"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/vhd_description"
+                    bind:color="@{model.languageColor}" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/vhd_stars"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/ic_star"
+                    android:drawablePadding="4sp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:text="@{model.stars == 0 ? Integer.toString(0) : Integer.toString(model.stars)}"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size"
+                    android:visibility="@{model.stars == 0 ? view.GONE : view.VISIBLE}"
+                    app:layout_constraintBottom_toTopOf="@+id/vex_guide2"
+                    app:layout_constraintEnd_toStartOf="@+id/vhd_forks"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@+id/vhd_language"
+                    app:layout_constraintTop_toBottomOf="@+id/vhd_description" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/vhd_forks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/ic_fork"
+                    android:drawablePadding="4sp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:gravity="center"
+                    android:text="@{model.forks == 0 ? Integer.toString(0) : Integer.toString(model.forks)}"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size"
+                    android:visibility="@{model.forks == 0 ? view.GONE : view.VISIBLE}"
+                    app:layout_constraintBottom_toTopOf="@+id/vex_guide2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@+id/vhd_stars"
+                    app:layout_constraintTop_toBottomOf="@+id/vhd_description" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.frestoinc.gojekassignment.api.view.ExpandableLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

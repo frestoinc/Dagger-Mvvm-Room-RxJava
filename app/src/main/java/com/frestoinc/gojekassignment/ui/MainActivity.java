@@ -66,8 +66,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.menu_name:
+        getViewModel().setSortedSource(true);
         break;
       case R.id.menu_stars:
+        getViewModel().setSortedSource(false);
         break;
       default:
         break;
@@ -96,10 +98,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
   }
 
   private void initRecyclerview() {
+    adapter.setHasStableIds(true);
     RecyclerView rc = getViewDataBinding().content.containerRc;
     rc.setLayoutManager(layoutManager);
     rc.addItemDecoration(decoration);
     rc.setAdapter(adapter);
+    rc.setItemViewCacheSize(10);
   }
 
   private void initRefreshLayout() {
@@ -118,7 +122,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
         githubModels -> {
           adapter.setSource(githubModels);
           for (GithubModel githubModel : githubModels) {
-            Log.e("TAG", "auhtor: " + githubModel.getAuthor());
+            Log.e("TAG", "auhtor: " + githubModel.getName());
           }
         });
   }

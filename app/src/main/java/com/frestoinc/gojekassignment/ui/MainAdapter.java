@@ -1,21 +1,15 @@
 package com.frestoinc.gojekassignment.ui;
 
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.os.Build;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.frestoinc.gojekassignment.api.base.BaseViewHolder;
 import com.frestoinc.gojekassignment.data.GithubModel;
 import com.frestoinc.gojekassignment.databinding.ViewholderDataBinding;
-import com.frestoinc.gojekassignment.databinding.ViewholderExpandableBinding;
 import com.frestoinc.gojekassignment.databinding.ViewholderPlaceholderBinding;
 
 import java.util.ArrayList;
@@ -61,19 +55,25 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   @Override
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
     if (holder instanceof MainViewHolder) {
-      ((MainViewHolder) holder).bind(position);
+      ((MainViewHolder) holder).binder.setModel(source.get(position));
     } else {
-      ((LoadingViewHolder) holder).bind(position);
+      ((LoadingViewHolder) holder).binder.setPlaceholder(source.get(position));
     }
   }
 
   @Override
+  public long getItemId(int position) {
+    return source.get(position).getId();
+  }
+
+  @Override
   public int getItemViewType(int position) {
-    if (source.get(position).isExpanded()) {
+    /*if (source.get(position).isExpanded()) {
       return STATE_LOADED;
     } else {
       return STATE_LOADING;
-    }
+    }*/
+    return STATE_LOADED;
   }
 
   @Override
@@ -96,10 +96,6 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     notifyDataSetChanged();
   }
 
-  private static boolean isStringValid(String string) {
-    return string != null && !TextUtils.isEmpty(string);
-  }
-
   protected class MainViewHolder extends BaseViewHolder implements View.OnClickListener {
 
     private ViewholderDataBinding binder;
@@ -107,55 +103,15 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     MainViewHolder(ViewholderDataBinding binding) {
       super(binding.getRoot());
       this.binder = binding;
-      binding.getRoot().setOnClickListener(this);
-    }
-
-    @Override
-    public void bind(int position) {
-      GithubModel model = source.get(position);
-
-      setText(binder.vhdAuthor, model.getAuthor());
-      setText(binder.vhdName, model.getName());
-
-      ViewholderExpandableBinding innerbinding = binder.vhdExpandable;
-
-      setText(innerbinding.vhdLanguage, model.getLanguage());
-      if (innerbinding.vhdLanguage.getVisibility() == View.VISIBLE) {
-        parseColor(model, innerbinding);
-      }
-
-      setText(innerbinding.vhdDescription, model.getDescription());
-      setText(innerbinding.vhdStars, String.valueOf(model.getStars()));
-      setText(innerbinding.vhdForks, String.valueOf(model.getForks()));
-    }
-
-    private void parseColor(GithubModel model, ViewholderExpandableBinding binding) {
-      String stringColor =
-          model.getLanguageColor() != null ? model.getLanguageColor() : "#FFFFFFFF";
-      int color = Color.parseColor(stringColor);
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        binding.vhdLanguage.getCompoundDrawablesRelative()[0].setTint(color);
-      } else {
-        binding.vhdLanguage.getCompoundDrawablesRelative()[0].setColorFilter(
-            color, PorterDuff.Mode.SRC_IN);
-      }
-    }
-
-    private void setText(AppCompatTextView view, String s) {
-      if (isStringValid(s)) {
-        view.setText(s);
-        view.setVisibility(View.VISIBLE);
-      } else {
-        view.setVisibility(View.GONE);
-      }
+      binder.getRoot().setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-      if (binder.vhdExpandable.vexExpandable.isExpanded()) {
-        binder.vhdExpandable.vexExpandable.collapse(true);
+      if (binder.vexExpandable.isExpanded()) {
+        binder.vexExpandable.collapse(true);
       } else {
-        binder.vhdExpandable.vexExpandable.expand(true);
+        binder.vexExpandable.expand(true);
       }
     }
   }
@@ -167,11 +123,6 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     LoadingViewHolder(ViewholderPlaceholderBinding binding) {
       super(binding.getRoot());
       this.binder = binding;
-    }
-
-    @Override
-    public void bind(int position) {
-      //nothing to do here
     }
   }
 }

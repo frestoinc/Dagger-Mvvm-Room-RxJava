@@ -1,5 +1,16 @@
 package com.frestoinc.gojekassignment.data;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.os.Build;
+import android.widget.ImageView;
+
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.databinding.BindingAdapter;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.frestoinc.gojekassignment.R;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -8,6 +19,35 @@ import java.util.List;
  * Created by frestoinc on 01,February,2020 for GoJekAssignment.
  */
 public class GithubModel {
+
+  private static final String FIELD_ERROR = "Error";
+
+  private long id;
+
+  @BindingAdapter({"imagePath"})
+  public static void getImage(ImageView imageView, String path) {
+    Glide.with(imageView.getContext())
+        .load(path)
+        .centerCrop()
+        .placeholder(R.drawable.ic_avatar)
+        .error(R.drawable.ic_avatar)
+        .fallback(R.drawable.ic_avatar)
+        .apply(RequestOptions.circleCropTransform())
+        .into(imageView);
+  }
+
+  @BindingAdapter({"color"})
+  public static void parseColor(AppCompatTextView textView, String stringColor) {
+    if (stringColor == null || stringColor.isEmpty()) {
+      stringColor = "#FFFFFFFF";
+    }
+    int color = Color.parseColor(stringColor);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+      textView.getCompoundDrawablesRelative()[0].setTint(color);
+    } else {
+      textView.getCompoundDrawablesRelative()[0].setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    }
+  }
 
   @SerializedName("author")
   private String author;
@@ -42,25 +82,16 @@ public class GithubModel {
   @SerializedName("builtBy")
   private List<GithubInnerModel> builtBy;
 
-  private boolean isExpanded = false;
-
   public GithubModel() {
-
+    //empty constructor
   }
 
-  public GithubModel(String author, String name, String avatar, String url, String description, String language, String languageColor, int stars, int forks, int currentPeriodStars, List<GithubInnerModel> builtBy) {
-    this.author = author;
-    this.name = name;
-    this.avatar = avatar;
-    this.url = url;
-    this.description = description;
-    this.language = language;
-    this.languageColor = languageColor;
-    this.stars = stars;
-    this.forks = forks;
-    this.currentPeriodStars = currentPeriodStars;
-    this.builtBy = builtBy;
-    this.isExpanded = false;
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public long getId() {
+    return id;
   }
 
   public String getAuthor() {
@@ -151,12 +182,8 @@ public class GithubModel {
     this.builtBy = builtBy;
   }
 
-  public boolean isExpanded() {
-    return isExpanded;
-  }
-
-  public void setExpanded(boolean expanded) {
-    isExpanded = expanded;
+  public String getError() {
+    return FIELD_ERROR;
   }
 
   public class GithubInnerModel {
@@ -164,20 +191,14 @@ public class GithubModel {
     @SerializedName("href")
     private String href;
 
-    @SerializedName("innerAvatar")
+    @SerializedName("avatar")
     private String innerAvatar;
 
     @SerializedName("username")
     private String username;
 
     public GithubInnerModel() {
-
-    }
-
-    public GithubInnerModel(String href, String innerAvatar, String username) {
-      this.href = href;
-      this.innerAvatar = innerAvatar;
-      this.username = username;
+      //empty constructor
     }
 
     public String getHref() {

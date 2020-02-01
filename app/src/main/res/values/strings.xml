@@ -6,5 +6,6 @@
     <string name="menu_stars">Sort by stars</string>
     <string name="menu_name">Sort by name</string>
     <string name="toolbar_title">Trending</string>
+    <string name="error">Error</string>
 
 </resources>
