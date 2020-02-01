@@ -74,6 +74,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
   }
 
+  @Override
+  protected void onPostResume() {
+    super.onPostResume();
+    getViewModel().getRepo();
+  }
+
   private void initView() {
     initToolbar();
     initRecyclerview();

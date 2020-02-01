@@ -28,11 +28,10 @@
                 app:layout_constraintGuide_end="16dp" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/vex_text3"
+                android:id="@+id/vhd_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/pingfang"
-                android:text="@string/testtext"
                 android:textColor="@color/text_color"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -40,59 +39,56 @@
                 app:layout_constraintTop_toBottomOf="@+id/vex_guide1" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/vex_text4"
+                android:id="@+id/vhd_language"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:drawableStart="@drawable/ic_test_24dp"
+                android:drawableStart="@drawable/ic_dot"
                 android:drawablePadding="4sp"
                 android:fontFamily="@font/roboto_regular"
-                android:text="C++"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size"
                 app:layout_constraintHorizontal_bias="0.08"
-                app:layout_constraintEnd_toStartOf="@+id/vex_text5"
+                app:layout_constraintEnd_toStartOf="@+id/vhd_stars"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/vex_text3"
+                app:layout_constraintTop_toBottomOf="@+id/vhd_description"
                 app:layout_constraintBottom_toTopOf="@+id/vex_guide2" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/vex_text5"
+                android:id="@+id/vhd_stars"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:drawableStart="@drawable/ic_test_24dp"
+                android:drawableStart="@drawable/ic_star"
                 android:drawablePadding="4sp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
-                android:text="14236"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size"
-                app:layout_constraintEnd_toStartOf="@+id/vex_text6"
+                app:layout_constraintEnd_toStartOf="@+id/vhd_forks"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@+id/vex_text4"
-                app:layout_constraintTop_toBottomOf="@+id/vex_text3"
+                app:layout_constraintStart_toEndOf="@+id/vhd_language"
+                app:layout_constraintTop_toBottomOf="@+id/vhd_description"
                 app:layout_constraintBottom_toTopOf="@+id/vex_guide2" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/vex_text6"
+                android:id="@+id/vhd_forks"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:drawableStart="@drawable/ic_test_24dp"
+                android:drawableStart="@drawable/ic_fork"
                 android:drawablePadding="4sp"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="center"
-                android:text="4736"
                 android:textColor="@color/text_color"
                 android:textSize="@dimen/text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@+id/vex_text5"
-                app:layout_constraintTop_toBottomOf="@+id/vex_text3"
+                app:layout_constraintStart_toEndOf="@+id/vhd_stars"
+                app:layout_constraintTop_toBottomOf="@+id/vhd_description"
                 app:layout_constraintBottom_toTopOf="@+id/vex_guide2" />
 
 

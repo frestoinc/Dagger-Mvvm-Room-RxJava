@@ -22,9 +22,9 @@
         <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
 
-    <style name="ThemeOverlay.Popup" parent="ThemeOverlay.AppCompat.Light">
+    <!--<style name="ThemeOverlay.Popup" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:background">@drawable/popup</item>
-    </style>
+    </style>-->
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

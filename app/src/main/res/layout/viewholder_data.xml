@@ -49,8 +49,7 @@
             app:layout_constraintGuide_begin="16dp" />
 
         <ImageView
-            android:src="@android:color/black"
-            android:id="@+id/vhd_image"
+            android:id="@+id/vhd_avatar"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:contentDescription="@null"
@@ -62,34 +61,32 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:fontFamily="@font/roboto_regular"
             android:textAlignment="center"
-            android:id="@+id/vhd_text1"
+            android:id="@+id/vhd_author"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@string/testtext"
             android:textColor="@color/text_color"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="@id/vhd_guide4"
-            app:layout_constraintBottom_toTopOf="@+id/vhd_text2"
+            app:layout_constraintBottom_toTopOf="@+id/vhd_name"
             app:layout_constraintStart_toStartOf="@+id/vhd_guide2"
             app:layout_constraintTop_toBottomOf="@+id/vhd_guide6" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:fontFamily="@font/roboto_regular"
-            android:id="@+id/vhd_text2"
+            android:id="@+id/vhd_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="@string/testtext"
             android:textColor="@color/text_color"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/vhd_guide4"
             app:layout_constraintStart_toStartOf="@+id/vhd_guide2"
-            app:layout_constraintTop_toBottomOf="@+id/vhd_text1" />
+            app:layout_constraintTop_toBottomOf="@+id/vhd_author" />
 
         <include
             android:id="@+id/vhd_expandable"
@@ -98,7 +95,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@id/vhd_guide4"
             app:layout_constraintStart_toEndOf="@+id/vhd_guide2"
-            app:layout_constraintTop_toBottomOf="@+id/vhd_text2" />
+            app:layout_constraintTop_toBottomOf="@+id/vhd_name" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

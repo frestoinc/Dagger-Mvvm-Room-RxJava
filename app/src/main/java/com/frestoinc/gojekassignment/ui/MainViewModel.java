@@ -24,7 +24,6 @@ public class MainViewModel extends BaseViewModel {
   @Inject
   public MainViewModel(SchedulerProvider provider, GithubRepository repository) {
     super(provider, repository);
-    getRepo();
   }
 
   @Override
@@ -36,7 +35,7 @@ public class MainViewModel extends BaseViewModel {
     return source;
   }
 
-  private void getRepo() {
+  public void getRepo() {
     getCompositeDisposable().add(getRepository().getRepo()
         .subscribeOn(getSchedulerProvider().io())
         .observeOn(getSchedulerProvider().ui())
