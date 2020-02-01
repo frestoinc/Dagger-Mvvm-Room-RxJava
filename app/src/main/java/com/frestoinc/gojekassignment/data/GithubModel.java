@@ -42,6 +42,8 @@ public class GithubModel {
   @SerializedName("builtBy")
   private List<GithubInnerModel> builtBy;
 
+  private boolean isExpanded = false;
+
   public GithubModel() {
 
   }
@@ -58,6 +60,7 @@ public class GithubModel {
     this.forks = forks;
     this.currentPeriodStars = currentPeriodStars;
     this.builtBy = builtBy;
+    this.isExpanded = false;
   }
 
   public String getAuthor() {
@@ -146,6 +149,14 @@ public class GithubModel {
 
   public void setBuiltBy(List<GithubInnerModel> builtBy) {
     this.builtBy = builtBy;
+  }
+
+  public boolean isExpanded() {
+    return isExpanded;
+  }
+
+  public void setExpanded(boolean expanded) {
+    isExpanded = expanded;
   }
 
   public class GithubInnerModel {

@@ -48,6 +48,13 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="16dp" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vhd_guide7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="16dp" />
+
         <ImageView
             android:id="@+id/vhd_avatar"
             android:layout_width="32dp"
@@ -60,7 +67,6 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:fontFamily="@font/roboto_regular"
-            android:textAlignment="center"
             android:id="@+id/vhd_author"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -95,7 +101,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@id/vhd_guide4"
             app:layout_constraintStart_toEndOf="@+id/vhd_guide2"
-            app:layout_constraintTop_toBottomOf="@+id/vhd_name" />
+            app:layout_constraintTop_toBottomOf="@+id/vhd_name"
+            app:layout_constraintBottom_toBottomOf="@+id/vhd_guide7" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

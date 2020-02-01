@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.frestoinc.gojekassignment.BR;
 import com.frestoinc.gojekassignment.R;
@@ -21,11 +22,16 @@ import javax.inject.Inject;
 /**
  * Created by frestoinc on 31,January,2020 for GoJekAssignment.
  */
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel>
-    implements View.OnClickListener {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> {
 
   @Inject
   LinearLayoutManager layoutManager;
+
+  @Inject
+  DividerItemDecoration decoration;
+
+  @Inject
+  MainAdapter adapter;
 
   @Override
   public int getLayoutId() {
@@ -70,11 +76,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
   }
 
   @Override
-  public void onClick(View v) {
-
-  }
-
-  @Override
   protected void onPostResume() {
     super.onPostResume();
     getViewModel().getRepo();
@@ -83,6 +84,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
   private void initView() {
     initToolbar();
     initRecyclerview();
+    initRefreshLayout();
   }
 
   private void initToolbar() {
@@ -94,8 +96,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
   }
 
   private void initRecyclerview() {
-    getViewDataBinding().content.containerRc.setLayoutManager(layoutManager);
+    RecyclerView rc = getViewDataBinding().content.containerRc;
+    rc.setLayoutManager(layoutManager);
+    rc.addItemDecoration(decoration);
+    rc.setAdapter(adapter);
+  }
 
+  private void initRefreshLayout() {
+    getViewDataBinding().content.container.setOnRefreshListener(() -> {
+      getViewModel().getRepo();
+      getViewDataBinding().content.container.setRefreshing(false);
+    });
   }
 
   private void initObservers() {
@@ -105,6 +116,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
   private void observeData() {
     getViewModel().getSource().observe(this,
         githubModels -> {
+          adapter.setSource(githubModels);
           for (GithubModel githubModel : githubModels) {
             Log.e("TAG", "auhtor: " + githubModel.getAuthor());
           }
