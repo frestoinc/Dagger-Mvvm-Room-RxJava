@@ -5,18 +5,33 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        app:elevation="0dp">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/actionBarSize"
-            app:elevation="20dp"
+            android:background="@android:color/white"
             android:fitsSystemWindows="true"
             android:minHeight="?attr/actionBarSize"
-            app:subtitleTextAppearance="@style/ToolbarSubtitleTheme"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            app:titleTextAppearance="@style/ToolbarSubtitleTheme">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/toolbarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/toolbar_title"
+                    android:textAlignment="center"
+                    android:textColor="@color/title_color"
+                    android:textSize="21sp" />
+            </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>

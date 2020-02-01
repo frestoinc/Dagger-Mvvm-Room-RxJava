@@ -19,7 +19,9 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
 
-        <include layout="@layout/activity_content" />
+        <include
+            android:id="@+id/content"
+            layout="@layout/activity_content" />
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
