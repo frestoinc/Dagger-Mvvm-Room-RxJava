@@ -13,9 +13,9 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.frestoinc.gojekassignment.R;
+import com.frestoinc.gojekassignment.di.module.GlideApp;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -31,7 +31,7 @@ public class GithubModel {
 
   @BindingAdapter({"imagePath"})
   public static void getImage(ImageView imageView, String path) {
-    Glide.with(imageView.getContext())
+    GlideApp.with(imageView.getContext())
         .load(path)
         .centerCrop()
         .placeholder(R.drawable.ic_avatar)

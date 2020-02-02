@@ -273,6 +273,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/module/GlideApp.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/frestoinc/gojekassignment/di/module/RoomModule.java">
           <value>
             <set />
