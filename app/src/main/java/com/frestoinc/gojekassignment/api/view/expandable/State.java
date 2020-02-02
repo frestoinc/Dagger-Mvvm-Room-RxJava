@@ -1,4 +1,4 @@
-package com.frestoinc.gojekassignment.api.view;
+package com.frestoinc.gojekassignment.api.view.expandable;
 
 import androidx.room.TypeConverter;
 

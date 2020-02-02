@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.DaggerApplication;
+import timber.log.Timber;
 
 /**
  * Created by frestoinc on 31,January,2020 for GoJekAssignment.
@@ -21,6 +22,9 @@ public class GoJekAssignment extends DaggerApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
     }
 
     @Override

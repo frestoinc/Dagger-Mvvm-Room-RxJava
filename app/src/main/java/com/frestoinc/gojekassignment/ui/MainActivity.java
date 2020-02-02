@@ -1,7 +1,6 @@
 package com.frestoinc.gojekassignment.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -9,12 +8,11 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.frestoinc.gojekassignment.BR;
 import com.frestoinc.gojekassignment.R;
 import com.frestoinc.gojekassignment.api.base.BaseActivity;
-import com.frestoinc.gojekassignment.data.model.GithubModel;
+import com.frestoinc.gojekassignment.api.view.network.ContentLoadingLayout;
 import com.frestoinc.gojekassignment.databinding.ActivityMainBinding;
 
 import javax.inject.Inject;
@@ -22,7 +20,7 @@ import javax.inject.Inject;
 /**
  * Created by frestoinc on 31,January,2020 for GoJekAssignment.
  */
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> {
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements ContentLoadingLayout.OnRequestRetryListener {
 
   @Inject
   LinearLayoutManager layoutManager;
@@ -66,15 +64,14 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.menu_name:
-        getViewModel().setSortedSource(true);
-        break;
+        adapter.setSortedSource(true);
+        return true;
       case R.id.menu_stars:
-        getViewModel().setSortedSource(false);
-        break;
+        adapter.setSortedSource(false);
+        return true;
       default:
-        break;
+        return super.onOptionsItemSelected(item);
     }
-    return super.onOptionsItemSelected(item);
   }
 
   @Override
@@ -83,10 +80,21 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     getViewModel().getLocalRepo();
   }
 
+  @Override
+  public void onNetworkStateChanged(boolean connected) {
+    if (!connected) {
+      getNetworkFrameLayout().switchToError();
+    } else {
+      getNetworkFrameLayout().switchToEmpty();
+      getViewModel().getLocalRepo();
+    }
+  }
+
   private void initView() {
     initToolbar();
     initRecyclerview();
     initRefreshLayout();
+    setLoadingContainer(getViewDataBinding().loadingContainer);
   }
 
   private void initToolbar() {
@@ -99,17 +107,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
   private void initRecyclerview() {
     adapter.setHasStableIds(true);
-    RecyclerView rc = getViewDataBinding().content.containerRc;
-    rc.setLayoutManager(layoutManager);
-    rc.addItemDecoration(decoration);
-    rc.setAdapter(adapter);
-    rc.setItemViewCacheSize(10);
+    getViewDataBinding().content.containerRc.setHasFixedSize(true);
+    getViewDataBinding().content.containerRc.setLayoutManager(layoutManager);
+    getViewDataBinding().content.containerRc.addItemDecoration(decoration);
+    getViewDataBinding().content.containerRc.setAdapter(adapter);
+    getViewDataBinding().content.containerRc.setItemViewCacheSize(10);
   }
 
   private void initRefreshLayout() {
-    getViewDataBinding().content.container.setOnRefreshListener(() -> {
-      getViewModel().getOnlineRepo();
-    });
+    getViewDataBinding().content.container.setOnRefreshListener(
+            () -> getViewModel().getOnlineRepo());
   }
 
   private void initObservers() {
@@ -117,16 +124,38 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
   }
 
   private void observeData() {
-    getViewModel().getSource().observe(this,
-        githubModels -> {
-          adapter.setSource(githubModels);
-          if (getViewDataBinding().content.container.isRefreshing()) {
-            getViewDataBinding().content.container.setRefreshing(false);
-          }
-          for (GithubModel githubModel : githubModels) {
-            Log.e("TAG", "auhtor: " + githubModel.getName());
-          }
-        });
+    getViewModel().getSource().observe(this, listAuthResource -> {
+      if (listAuthResource != null) {
+        switch (listAuthResource.status) {
+          case LOADING:
+            adapter.setEmptySource();
+            getNetworkFrameLayout().switchToEmpty();
+            break;
+          case SUCCESS:
+            adapter.setSource(listAuthResource.data);
+            removeSwipeRefreshing();
+            getNetworkFrameLayout().switchToEmpty();
+            break;
+          case ERROR:
+            removeSwipeRefreshing();
+            getNetworkFrameLayout().switchToError();
+            break;
+          default:
+            break;
+        }
+      }
+    });
+  }
+
+  private void removeSwipeRefreshing() {
+    if (getViewDataBinding().content.container.isRefreshing()) {
+      getViewDataBinding().content.container.setRefreshing(false);
+    }
+  }
+
+  @Override
+  public void onRequestRetry() {
+    getViewModel().getOnlineRepo();
   }
 }
 

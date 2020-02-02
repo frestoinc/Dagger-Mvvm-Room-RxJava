@@ -114,7 +114,7 @@
             app:layout_constraintStart_toStartOf="@+id/vhd_guide2"
             app:layout_constraintTop_toBottomOf="@+id/vhd_author" />
 
-        <com.frestoinc.gojekassignment.api.view.ExpandableLayout
+        <com.frestoinc.gojekassignment.api.view.expandable.ExpandableLayout
             android:id="@+id/vex_expandable"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -218,7 +218,7 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.frestoinc.gojekassignment.api.view.ExpandableLayout>
+        </com.frestoinc.gojekassignment.api.view.expandable.ExpandableLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

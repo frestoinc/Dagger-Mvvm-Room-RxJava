@@ -1,18 +1,17 @@
 package com.frestoinc.gojekassignment.ui;
 
-import android.os.Build;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.frestoinc.gojekassignment.BuildConfig;
 import com.frestoinc.gojekassignment.api.base.BaseViewModel;
 import com.frestoinc.gojekassignment.api.base.rx.SchedulerProvider;
 import com.frestoinc.gojekassignment.data.AppDataManager;
 import com.frestoinc.gojekassignment.data.model.GithubModel;
 
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -26,7 +25,7 @@ import io.reactivex.observers.DisposableSingleObserver;
  */
 public class MainViewModel extends BaseViewModel {
 
-  private MutableLiveData<List<GithubModel>> source = new MutableLiveData<>();
+    private MutableLiveData<AuthResource<List<GithubModel>>> source = new MutableLiveData<>();
 
   @Inject
   MainViewModel(SchedulerProvider provider, AppDataManager appDataManager) {
@@ -35,15 +34,19 @@ public class MainViewModel extends BaseViewModel {
 
   @Override
   public void setError(Throwable e) {
-    e.printStackTrace();
+      if (BuildConfig.DEBUG) {
+          Log.e("TAG", "Error: " + e);
+          e.printStackTrace();
+      }
+      source.setValue(AuthResource.error());
   }
 
-  LiveData<List<GithubModel>> getSource() {
+    LiveData<AuthResource<List<GithubModel>>> getSource() {
     return source;
   }
 
-  public void getOnlineRepo() {
-    Log.e("TAG", "getOnlineRepo");
+    void getOnlineRepo() {
+        source.setValue(AuthResource.loading(new ArrayList<>()));
     getCompositeDisposable().add(getDataManager().getRepo()
         .subscribeOn(getSchedulerProvider().io())
         .observeOn(getSchedulerProvider().ui())
@@ -64,7 +67,7 @@ public class MainViewModel extends BaseViewModel {
   }
 
   void getLocalRepo() {
-    Log.e("TAG", "getLocalRepo");
+      source.setValue(AuthResource.loading(new ArrayList<>()));
     getCompositeDisposable().add(getDataManager().getRepo()
         .subscribeOn(getSchedulerProvider().io())
         .observeOn(getSchedulerProvider().ui())
@@ -72,10 +75,9 @@ public class MainViewModel extends BaseViewModel {
           @Override
           public void onSuccess(List<GithubModel> githubModels) {
             if (githubModels.isEmpty()) {
-              Log.e("TAG", "room is empty");
               getOnlineRepo();
             } else {
-              source.setValue(githubModels);
+                source.setValue(AuthResource.success(githubModels));
             }
           }
 
@@ -87,7 +89,7 @@ public class MainViewModel extends BaseViewModel {
   }
 
   private void insertIntoRoom(List<GithubModel> list) {
-    Log.e("TAG", "insertIntoRoom");
+      source.setValue(AuthResource.loading(new ArrayList<>()));
     getCompositeDisposable().add(getDataManager().insert(list)
         .subscribeOn(getSchedulerProvider().io())
         .observeOn(getSchedulerProvider().ui())
@@ -121,23 +123,4 @@ public class MainViewModel extends BaseViewModel {
         }));
   }
 
-  void setSortedSource(boolean isName) {
-    if (getSource().getValue() == null || getSource().getValue().isEmpty()) {
-      return;
-    }
-    List<GithubModel> list = getSource().getValue();
-    Comparator<GithubModel> comparator = (o1, o2) -> {
-      if (isName) {
-        return o1.getName().compareToIgnoreCase(o2.getName());
-      }
-      return o2.getStars() - o1.getStars();
-    };
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-      list.sort(comparator);
-    } else {
-      Collections.sort(list, comparator);
-    }
-    source.setValue(list);
-  }
 }

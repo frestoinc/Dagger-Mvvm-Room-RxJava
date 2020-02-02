@@ -7,5 +7,8 @@
         <attr name="parallax" format="float" />
         <attr name="android:orientation" />
     </declare-styleable>
+    <declare-styleable name="NetworkFrameLayout">
+        <attr name="textLoading" format="string" />
+    </declare-styleable>
 
 </resources>

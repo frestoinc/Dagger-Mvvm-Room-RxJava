@@ -7,5 +7,4 @@ public enum NetworkState {
   LOADING,
   ERROR,
   SUCCESS,
-  NO_NETWORK
 }

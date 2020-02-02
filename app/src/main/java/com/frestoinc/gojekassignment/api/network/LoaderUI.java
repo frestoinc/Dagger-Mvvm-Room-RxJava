@@ -5,11 +5,9 @@ package com.frestoinc.gojekassignment.api.network;
  */
 public interface LoaderUI {
 
-  void switchToNoNetwork();
+  void switchToError();
 
   void switchToEmpty();
-
-  void switchToLoading(String text);
 
   NetworkState getState();
 }

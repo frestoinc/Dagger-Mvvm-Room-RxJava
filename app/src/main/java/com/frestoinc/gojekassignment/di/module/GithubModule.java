@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -40,6 +41,10 @@ public class GithubModule {
   static OkHttpClient provideOkHttpClient(HttpLoggingInterceptor interceptor) {
     return new OkHttpClient.Builder()
         .addInterceptor(interceptor)
+            .addInterceptor(chain -> {
+                Request request = chain.request();
+                return chain.proceed(request);
+            })
         .connectTimeout(20, TimeUnit.SECONDS)
         .writeTimeout(20, TimeUnit.SECONDS)
         .readTimeout(20, TimeUnit.SECONDS)
