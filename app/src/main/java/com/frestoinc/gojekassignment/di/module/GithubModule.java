@@ -1,7 +1,7 @@
 package com.frestoinc.gojekassignment.di.module;
 
 import com.frestoinc.gojekassignment.api.rest.GithubApi;
-import com.frestoinc.gojekassignment.api.rest.GithubUrl;
+import com.frestoinc.gojekassignment.data.Constants;
 import com.frestoinc.gojekassignment.di.scope.AppScope;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -27,7 +27,7 @@ public class GithubModule {
   @Provides
   static GithubApi provideGithubApi(OkHttpClient client) {
     return new Retrofit.Builder()
-        .baseUrl(GithubUrl.BASE_URL)
+        .baseUrl(Constants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .client(client)

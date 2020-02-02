@@ -6,7 +6,7 @@
 
         <variable
             name="placeholder"
-            type="com.frestoinc.gojekassignment.data.GithubModel" />
+            type="com.frestoinc.gojekassignment.data.model.GithubModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

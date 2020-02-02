@@ -4,24 +4,17 @@
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="java.util.List" />
-
-        <variable
-            name="list"
-            type="List&lt;String>" />
-
         <variable
             name="view"
             type="android.view.View" />
 
         <variable
-            name="innermodel"
-            type="com.frestoinc.gojekassignment.data.GithubModel.GithubInnerModel" />
+            name="constant"
+            type="com.frestoinc.gojekassignment.data.Constants" />
 
         <variable
             name="model"
-            type="com.frestoinc.gojekassignment.data.GithubModel" />
+            type="com.frestoinc.gojekassignment.data.model.GithubModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,7 +71,7 @@
             app:layout_constraintGuide_end="16dp" />
 
         <ImageView
-            bind:imagePath="@{model.builtBy.get(0).innerAvatar}"
+            bind:imagePath="@{model.builtBy.get(0).avatar}"
             android:id="@+id/vhd_avatar"
             android:layout_width="32dp"
             android:layout_height="32dp"
@@ -89,7 +82,7 @@
             app:layout_constraintTop_toBottomOf="@+id/vhd_guide5" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:text="@{model.author ?? model.error}"
+            android:text="@{model.author ?? constant.error}"
             android:visibility="@{model.author != null ? view.VISIBLE : view.GONE}"
             android:fontFamily="@font/roboto_regular"
             android:id="@+id/vhd_author"
@@ -105,7 +98,7 @@
             app:layout_constraintTop_toBottomOf="@+id/vhd_guide6" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:text="@{model.name ?? model.error}"
+            android:text="@{model.name ?? constant.error}"
             android:visibility="@{model.name != null ? view.VISIBLE : view.GONE}"
             android:fontFamily="@font/roboto_regular"
             android:id="@+id/vhd_name"
@@ -155,7 +148,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pingfang"
-                    android:text="@{model.description ?? model.error}"
+                    android:text="@{model.description ?? constant.error}"
                     android:textColor="@color/text_color"
                     android:textSize="12sp"
                     android:visibility="@{model.description != null ? view.VISIBLE : view.GONE}"
@@ -171,7 +164,7 @@
                     android:drawableStart="@drawable/ic_dot"
                     android:drawablePadding="4sp"
                     android:fontFamily="@font/roboto_regular"
-                    android:text="@{model.language ?? model.error}"
+                    android:text="@{model.language ?? constant.error}"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/text_size"
                     android:visibility="@{model.language != null ? view.VISIBLE : view.GONE}"

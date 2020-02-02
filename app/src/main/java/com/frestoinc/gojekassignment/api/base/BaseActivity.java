@@ -1,12 +1,10 @@
 package com.frestoinc.gojekassignment.api.base;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
@@ -64,11 +62,6 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
 
   public T getViewDataBinding() {
     return viewDataBinding;
-  }
-
-  public void navigateTo(Class className) {
-    Intent intent = new Intent(this, className);
-    ActivityCompat.startActivity(this, intent, null);
   }
 
   public boolean onOptionsItemSelected(MenuItem item) {

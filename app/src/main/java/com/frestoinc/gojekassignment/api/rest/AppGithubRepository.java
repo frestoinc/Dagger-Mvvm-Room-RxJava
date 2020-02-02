@@ -1,6 +1,6 @@
 package com.frestoinc.gojekassignment.api.rest;
 
-import com.frestoinc.gojekassignment.data.GithubModel;
+import com.frestoinc.gojekassignment.data.model.GithubModel;
 
 import java.util.List;
 

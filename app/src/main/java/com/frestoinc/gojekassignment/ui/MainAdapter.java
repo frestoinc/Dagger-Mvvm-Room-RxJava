@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.frestoinc.gojekassignment.api.base.BaseViewHolder;
-import com.frestoinc.gojekassignment.data.GithubModel;
+import com.frestoinc.gojekassignment.data.model.GithubModel;
 import com.frestoinc.gojekassignment.databinding.ViewholderDataBinding;
 import com.frestoinc.gojekassignment.databinding.ViewholderPlaceholderBinding;
 

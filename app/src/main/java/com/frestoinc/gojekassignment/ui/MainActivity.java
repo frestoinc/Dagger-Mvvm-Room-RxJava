@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.frestoinc.gojekassignment.BR;
 import com.frestoinc.gojekassignment.R;
 import com.frestoinc.gojekassignment.api.base.BaseActivity;
-import com.frestoinc.gojekassignment.data.GithubModel;
+import com.frestoinc.gojekassignment.data.model.GithubModel;
 import com.frestoinc.gojekassignment.databinding.ActivityMainBinding;
 
 import javax.inject.Inject;
@@ -80,7 +80,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
   @Override
   protected void onPostResume() {
     super.onPostResume();
-    getViewModel().getRepo();
+    getViewModel().getLocalRepo();
   }
 
   private void initView() {
@@ -108,8 +108,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 
   private void initRefreshLayout() {
     getViewDataBinding().content.container.setOnRefreshListener(() -> {
-      getViewModel().getRepo();
-      getViewDataBinding().content.container.setRefreshing(false);
+      getViewModel().getOnlineRepo();
     });
   }
 
@@ -121,6 +120,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     getViewModel().getSource().observe(this,
         githubModels -> {
           adapter.setSource(githubModels);
+          if (getViewDataBinding().content.container.isRefreshing()) {
+            getViewDataBinding().content.container.setRefreshing(false);
+          }
           for (GithubModel githubModel : githubModels) {
             Log.e("TAG", "auhtor: " + githubModel.getName());
           }

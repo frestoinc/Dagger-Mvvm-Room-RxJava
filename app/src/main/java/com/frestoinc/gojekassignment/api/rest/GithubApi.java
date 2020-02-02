@@ -1,6 +1,7 @@
 package com.frestoinc.gojekassignment.api.rest;
 
-import com.frestoinc.gojekassignment.data.GithubModel;
+import com.frestoinc.gojekassignment.data.Constants;
+import com.frestoinc.gojekassignment.data.model.GithubModel;
 
 import java.util.List;
 
@@ -12,6 +13,6 @@ import retrofit2.http.GET;
  */
 public interface GithubApi {
 
-  @GET("repositories")
+  @GET(Constants.REST_CONSTANT)
   Single<List<GithubModel>> getRepositories();
 }

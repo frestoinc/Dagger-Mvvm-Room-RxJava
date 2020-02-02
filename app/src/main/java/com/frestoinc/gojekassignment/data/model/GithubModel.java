@@ -1,4 +1,4 @@
-package com.frestoinc.gojekassignment.data;
+package com.frestoinc.gojekassignment.data.model;
 
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -7,6 +7,11 @@ import android.widget.ImageView;
 
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.BindingAdapter;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -18,10 +23,10 @@ import java.util.List;
 /**
  * Created by frestoinc on 01,February,2020 for GoJekAssignment.
  */
+@Entity(tableName = "github", indices = {@Index(value = {"author"}, unique = true)})
 public class GithubModel {
 
-  private static final String FIELD_ERROR = "Error";
-
+  @PrimaryKey(autoGenerate = true)
   private long id;
 
   @BindingAdapter({"imagePath"})
@@ -49,38 +54,45 @@ public class GithubModel {
     }
   }
 
+  @ColumnInfo(name = "author")
   @SerializedName("author")
   private String author;
 
+  @ColumnInfo(name = "name")
   @SerializedName("name")
   private String name;
 
+  @ColumnInfo(name = "avatar")
   @SerializedName("avatar")
   private String avatar;
 
+  @ColumnInfo(name = "url")
   @SerializedName("url")
   private String url;
 
+  @ColumnInfo(name = "description")
   @SerializedName("description")
   private String description;
 
+  @ColumnInfo(name = "language")
   @SerializedName("language")
   private String language;
 
+  @ColumnInfo(name = "languageColor")
   @SerializedName("languageColor")
   private String languageColor;
 
+  @ColumnInfo(name = "stars")
   @SerializedName("stars")
   private int stars;
 
+  @ColumnInfo(name = "forks")
   @SerializedName("forks")
   private int forks;
 
+  @ColumnInfo(name = "currentPeriodStars")
   @SerializedName("currentPeriodStars")
   private int currentPeriodStars;
-
-  @SerializedName("builtBy")
-  private List<GithubInnerModel> builtBy;
 
   public GithubModel() {
     //empty constructor
@@ -182,18 +194,22 @@ public class GithubModel {
     this.builtBy = builtBy;
   }
 
-  public String getError() {
-    return FIELD_ERROR;
-  }
+  @ColumnInfo(name = "builtBy")
+  @SerializedName("builtBy")
+  @TypeConverters(NestedConverter.class)
+  private List<GithubInnerModel> builtBy;
 
   public class GithubInnerModel {
 
+    @ColumnInfo(name = "href")
     @SerializedName("href")
     private String href;
 
+    @ColumnInfo(name = "avatar")
     @SerializedName("avatar")
-    private String innerAvatar;
+    private String avatar;
 
+    @ColumnInfo(name = "username")
     @SerializedName("username")
     private String username;
 
@@ -209,12 +225,12 @@ public class GithubModel {
       this.href = href;
     }
 
-    public String getInnerAvatar() {
-      return innerAvatar;
+    public String getAvatar() {
+      return avatar;
     }
 
-    public void setInnerAvatar(String innerAvatar) {
-      this.innerAvatar = innerAvatar;
+    public void setAvatar(String avatar) {
+      this.avatar = avatar;
     }
 
     public String getUsername() {
