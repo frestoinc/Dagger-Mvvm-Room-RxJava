@@ -129,6 +129,12 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
 
+    testImplementation 'org.mockito:mockito-core:2.23.4'
+    androidTestImplementation 'org.mockito:mockito-android:2.23.4'
+    testImplementation 'net.bytebuddy:byte-buddy-dep:1.9.7'
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+
+    androidTestImplementation 'androidx.work:work-testing:2.3.0'
 
 
     /**
@@ -202,4 +208,7 @@ dependencies {
     def glide_version = "4.11.0"
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
+    def rxwork_version = "2.3.0"
+    implementation "androidx.work:work-rxjava2:$rxwork_version"
 }

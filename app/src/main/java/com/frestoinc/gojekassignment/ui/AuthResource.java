@@ -18,22 +18,26 @@ public class AuthResource<T> {
     @Nullable
     public final T data;
 
+    @Nullable
+    public final String msg;
 
-    public AuthResource(@NonNull NetworkState status, @Nullable T data) {
+
+    public AuthResource(@NonNull NetworkState status, @Nullable T data, @Nullable String msg) {
         this.status = status;
         this.data = data;
+        this.msg = msg;
     }
 
     public static <T> AuthResource<T> success(@Nullable T data) {
-        return new AuthResource<>(NetworkState.SUCCESS, data);
+        return new AuthResource<>(NetworkState.SUCCESS, data, null);
     }
 
-    public static <T> AuthResource<T> error() {
-        return new AuthResource<>(NetworkState.ERROR, null);
+    public static <T> AuthResource<T> error(@Nullable String msg) {
+        return new AuthResource<>(NetworkState.ERROR, null, msg);
     }
 
     public static <T> AuthResource<T> loading(@Nullable T data) {
-        return new AuthResource<>(NetworkState.LOADING, data);
+        return new AuthResource<>(NetworkState.LOADING, data, null);
     }
 
 }

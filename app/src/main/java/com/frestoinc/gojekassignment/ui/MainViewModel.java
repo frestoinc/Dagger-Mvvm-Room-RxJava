@@ -8,10 +8,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.frestoinc.gojekassignment.BuildConfig;
 import com.frestoinc.gojekassignment.api.base.BaseViewModel;
 import com.frestoinc.gojekassignment.api.base.rx.SchedulerProvider;
-import com.frestoinc.gojekassignment.data.AppDataManager;
+import com.frestoinc.gojekassignment.data.DataManager;
 import com.frestoinc.gojekassignment.data.model.GithubModel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -28,9 +27,13 @@ public class MainViewModel extends BaseViewModel {
     private MutableLiveData<AuthResource<List<GithubModel>>> source = new MutableLiveData<>();
 
     @Inject
-    MainViewModel(SchedulerProvider provider, AppDataManager appDataManager) {
+    MainViewModel(SchedulerProvider provider, DataManager appDataManager) {
         super(provider, appDataManager);
         getLocalRepo();
+    }
+
+    MainViewModel() {
+        super();
     }
 
     @Override
@@ -39,7 +42,7 @@ public class MainViewModel extends BaseViewModel {
             Log.e("TAG", "Error: " + e);
             e.printStackTrace();
         }
-        source.setValue(AuthResource.error());
+        source.setValue(AuthResource.error(e.getMessage()));
     }
 
     LiveData<AuthResource<List<GithubModel>>> getSource() {
@@ -47,8 +50,8 @@ public class MainViewModel extends BaseViewModel {
     }
 
     void getOnlineRepo() {
-        source.setValue(AuthResource.loading(new ArrayList<>()));
         getCompositeDisposable().add(getDataManager().getRepo()
+                .doOnSubscribe(disposable -> doOnLoading())
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribeWith(new DisposableSingleObserver<List<GithubModel>>() {
@@ -64,12 +67,14 @@ public class MainViewModel extends BaseViewModel {
                     public void onError(Throwable e) {
                         setError(e);
                     }
-                }));
+                })
+
+        );
     }
 
     void getLocalRepo() {
-        source.setValue(AuthResource.loading(new ArrayList<>()));
-        getCompositeDisposable().add(getDataManager().getRepo()
+        getCompositeDisposable().add(getDataManager().getRoomRepo()
+                .doOnSubscribe(disposable -> doOnLoading())
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribeWith(new DisposableSingleObserver<List<GithubModel>>() {
@@ -78,7 +83,7 @@ public class MainViewModel extends BaseViewModel {
                         if (githubModels.isEmpty()) {
                             getOnlineRepo();
                         } else {
-                            source.setValue(AuthResource.success(githubModels));
+                            doOnSuccess(githubModels);
                         }
                     }
 
@@ -86,12 +91,13 @@ public class MainViewModel extends BaseViewModel {
                     public void onError(Throwable e) {
                         setError(e);
                     }
-                }));
+                })
+        );
     }
 
     private void insertIntoRoom(List<GithubModel> list) {
-        source.setValue(AuthResource.loading(new ArrayList<>()));
         getCompositeDisposable().add(getDataManager().insert(list)
+                .doOnSubscribe(disposable -> doOnLoading())
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribeWith(new DisposableCompletableObserver() {
@@ -109,6 +115,7 @@ public class MainViewModel extends BaseViewModel {
 
     private void deleteEntries() {
         getCompositeDisposable().add(getDataManager().deleteAll()
+                .doOnSubscribe(disposable -> doOnLoading())
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
                 .subscribeWith(new DisposableCompletableObserver() {
@@ -122,6 +129,14 @@ public class MainViewModel extends BaseViewModel {
                         setError(e);
                     }
                 }));
+    }
+
+    private void doOnLoading() {
+        source.postValue(AuthResource.loading(null));
+    }
+
+    private void doOnSuccess(List<GithubModel> list) {
+        source.setValue(AuthResource.success(list));
     }
 
 }

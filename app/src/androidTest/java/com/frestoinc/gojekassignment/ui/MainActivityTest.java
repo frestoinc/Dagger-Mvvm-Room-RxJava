@@ -9,6 +9,7 @@ import androidx.test.rule.ActivityTestRule;
 import com.frestoinc.gojekassignment.R;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,12 +29,18 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 @RunWith(AndroidJUnit4ClassRunner.class)
 public class MainActivityTest {
 
+    private Context appContext;
+
     @Rule
     public final ActivityTestRule<MainActivity> main = new ActivityTestRule<>(MainActivity.class, true);
 
+    @Before
+    public void setUp() {
+        appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+    }
+
     @Test
     public void test_Context() {
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         Assert.assertEquals("com.frestoinc.gojekassignment", appContext.getPackageName());
     }
 
@@ -57,7 +64,6 @@ public class MainActivityTest {
 
     @Test
     public void test_OptionMenu() {
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         openActionBarOverflowOrOptionsMenu(appContext);
         onView(withText("Sort by stars")).perform(click());
         openActionBarOverflowOrOptionsMenu(appContext);

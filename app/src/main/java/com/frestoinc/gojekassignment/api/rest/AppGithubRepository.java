@@ -23,6 +23,6 @@ public class AppGithubRepository implements GithubRepository {
 
   @Override
   public Single<List<GithubModel>> getRepo() {
-    return api.getRepositories();
+    return api.getRxRepositories();
   }
 }

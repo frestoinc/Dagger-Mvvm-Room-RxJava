@@ -67,7 +67,7 @@ public class RecyclerViewTest {
     }
 
     @Test
-    public void test__RecyclerViewSelectItem() {
+    public void test_RecyclerViewSelectItem() {
         onView(withId(R.id.containerRc)).check(matches(isDisplayed()));
         waitFor(3000);
         for (int i = 0; i < listSize; i++) {
