@@ -19,7 +19,6 @@ import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
-import timber.log.Timber;
 
 /**
  * Created by frestoinc on 31,January,2020 for GoJekAssignment.
@@ -48,7 +47,6 @@ public class MainViewModel extends BaseViewModel {
     }
 
     void getOnlineRepo() {
-        Timber.e("getOnlineRepo");
         source.setValue(AuthResource.loading(new ArrayList<>()));
         getCompositeDisposable().add(getDataManager().getRepo()
                 .subscribeOn(getSchedulerProvider().io())
@@ -70,7 +68,6 @@ public class MainViewModel extends BaseViewModel {
     }
 
     void getLocalRepo() {
-        Timber.e("getlocalrepo");
         source.setValue(AuthResource.loading(new ArrayList<>()));
         getCompositeDisposable().add(getDataManager().getRepo()
                 .subscribeOn(getSchedulerProvider().io())

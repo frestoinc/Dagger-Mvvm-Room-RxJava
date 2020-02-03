@@ -120,7 +120,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     notifyDataSetChanged();
   }
 
-  protected class MainViewHolder extends BaseViewHolder implements View.OnClickListener {
+  public class MainViewHolder extends BaseViewHolder implements View.OnClickListener {
 
     private ViewholderDataBinding binder;
 
