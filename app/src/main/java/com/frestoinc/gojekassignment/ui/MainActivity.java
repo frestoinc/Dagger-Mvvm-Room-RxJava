@@ -5,6 +5,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -74,22 +75,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     }
   }
 
-  @Override
-  protected void onPostResume() {
-    super.onPostResume();
-    getViewModel().getLocalRepo();
-  }
-
-  @Override
-  public void onNetworkStateChanged(boolean connected) {
-    if (!connected) {
-      getNetworkFrameLayout().switchToError();
-    } else {
-      getNetworkFrameLayout().switchToEmpty();
-      getViewModel().getLocalRepo();
-    }
-  }
-
   private void initView() {
     initToolbar();
     initRecyclerview();
@@ -98,11 +83,12 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
   }
 
   private void initToolbar() {
-    setSupportActionBar(getViewDataBinding().toolbar.toolbar);
+    Toolbar toolbar = getViewDataBinding().toolbar.customToolbar;
+    setSupportActionBar(toolbar);
     if (getSupportActionBar() != null) {
       getSupportActionBar().setDisplayShowTitleEnabled(false);
-      getViewDataBinding().toolbar.toolbarTitle.setText(getString(R.string.toolbar_title));
     }
+    getViewDataBinding().toolbar.toolbarTitle.setText(getString(R.string.toolbar_title));
   }
 
   private void initRecyclerview() {

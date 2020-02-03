@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="16dp">
@@ -14,11 +14,15 @@
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:contentDescription="@null"
-            android:src="@drawable/error" />
+            android:src="@drawable/error"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/error_text1"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/error_img"
             android:layout_marginTop="24dp"
@@ -26,11 +30,15 @@
             android:text="@string/error_text1"
             android:textAlignment="center"
             android:textColor="@color/error_title_color"
-            android:textSize="@dimen/error_text_title" />
+            android:textSize="@dimen/error_text_title"
+            app:layout_constraintBottom_toTopOf="@+id/error_text2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/error_img" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/error_text2"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/error_text1"
             android:layout_marginTop="8dp"
@@ -38,13 +46,16 @@
             android:text="@string/error_text2"
             android:textAlignment="center"
             android:textColor="@color/error_subtitle_color"
-            android:textSize="@dimen/error_text_title" />
+            android:textSize="@dimen/error_text_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/error_text1" />
 
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/error_btn"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:background="@android:color/white"
@@ -54,7 +65,10 @@
             android:textSize="15sp"
             app:cornerRadius="4dp"
             app:strokeColor="@color/button_color"
-            app:strokeWidth="1dp" />
+            app:strokeWidth="1dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

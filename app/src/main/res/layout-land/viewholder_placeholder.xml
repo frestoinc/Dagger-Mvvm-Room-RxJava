@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="placeholder"
+            type="com.frestoinc.gojekassignment.data.model.GithubModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vph_guide1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="0dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vph_guide2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="64dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vph_guide3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="164dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vph_guide4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="32dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vph_guide5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="21dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vph_guide6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="21dp" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/vph_image"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toStartOf="@+id/vph_guide2"
+            app:layout_constraintStart_toStartOf="@+id/vph_guide1"
+            app:layout_constraintTop_toBottomOf="@+id/vph_guide5"
+            app:layout_constraintBottom_toTopOf="@+id/vph_guide6">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_avatar"
+                android:contentDescription="@null"
+                android:scaleType="fitXY" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/vph_text1"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            app:cardBackgroundColor="@android:color/darker_gray"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintEnd_toStartOf="@+id/vph_guide3"
+            app:layout_constraintBottom_toTopOf="@+id/vph_text2"
+            app:layout_constraintStart_toStartOf="@+id/vph_guide2"
+            app:layout_constraintTop_toTopOf="@+id/vph_image" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/vph_text2"
+            android:layout_width="0dp"
+            android:layout_height="8dp"
+            android:layout_marginTop="16dp"
+            app:cardBackgroundColor="@android:color/darker_gray"
+            app:cardCornerRadius="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/vph_guide6"
+            app:layout_constraintEnd_toEndOf="@+id/vph_guide4"
+            app:layout_constraintStart_toEndOf="@+id/vph_guide4"
+            app:layout_constraintStart_toStartOf="@+id/vph_guide2"
+            app:layout_constraintTop_toBottomOf="@+id/vph_text1" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

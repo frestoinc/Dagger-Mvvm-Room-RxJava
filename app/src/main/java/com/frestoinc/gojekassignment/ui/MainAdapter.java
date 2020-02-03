@@ -21,8 +21,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import timber.log.Timber;
-
 /**
  * Created by frestoinc on 01,February,2020 for GoJekAssignment.
  */
@@ -98,8 +96,6 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   public void setSource(List<GithubModel> list) {
     this.source.data.clear();
     this.source = AuthResource.success(list);
-    Timber.e("source size: %s", source.data.size());
-    Timber.e("list size: %s", list.size());
     notifyDataSetChanged();
   }
 

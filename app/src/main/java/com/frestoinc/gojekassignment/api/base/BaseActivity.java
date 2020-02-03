@@ -106,6 +106,15 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
     unregisterReceiver(receiver);
   }
 
+    @Override
+    public void onNetworkStateChanged(boolean connected) {
+        if (!connected) {
+            getNetworkFrameLayout().switchToError();
+        } else {
+            getNetworkFrameLayout().switchToEmpty();
+        }
+    }
+
   private IntentFilter getNetworkFilter() {
     final IntentFilter intentFilter = new IntentFilter();
     intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);

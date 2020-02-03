@@ -19,6 +19,7 @@ import javax.inject.Inject;
 
 import io.reactivex.observers.DisposableCompletableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
+import timber.log.Timber;
 
 /**
  * Created by frestoinc on 31,January,2020 for GoJekAssignment.
@@ -27,100 +28,103 @@ public class MainViewModel extends BaseViewModel {
 
     private MutableLiveData<AuthResource<List<GithubModel>>> source = new MutableLiveData<>();
 
-  @Inject
-  MainViewModel(SchedulerProvider provider, AppDataManager appDataManager) {
-    super(provider, appDataManager);
-  }
+    @Inject
+    MainViewModel(SchedulerProvider provider, AppDataManager appDataManager) {
+        super(provider, appDataManager);
+        getLocalRepo();
+    }
 
-  @Override
-  public void setError(Throwable e) {
-      if (BuildConfig.DEBUG) {
-          Log.e("TAG", "Error: " + e);
-          e.printStackTrace();
-      }
-      source.setValue(AuthResource.error());
-  }
+    @Override
+    public void setError(Throwable e) {
+        if (BuildConfig.DEBUG) {
+            Log.e("TAG", "Error: " + e);
+            e.printStackTrace();
+        }
+        source.setValue(AuthResource.error());
+    }
 
     LiveData<AuthResource<List<GithubModel>>> getSource() {
-    return source;
-  }
+        return source;
+    }
 
     void getOnlineRepo() {
+        Timber.e("getOnlineRepo");
         source.setValue(AuthResource.loading(new ArrayList<>()));
-    getCompositeDisposable().add(getDataManager().getRepo()
-        .subscribeOn(getSchedulerProvider().io())
-        .observeOn(getSchedulerProvider().ui())
-        .subscribeWith(new DisposableSingleObserver<List<GithubModel>>() {
-          @Override
-          public void onSuccess(List<GithubModel> githubModels) {
-            for (int i = 0; i < githubModels.size(); i++) {
-              githubModels.get(i).setId(new Random().nextLong());
-            }
-            insertIntoRoom(githubModels);
-          }
+        getCompositeDisposable().add(getDataManager().getRepo()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribeWith(new DisposableSingleObserver<List<GithubModel>>() {
+                    @Override
+                    public void onSuccess(List<GithubModel> githubModels) {
+                        for (int i = 0; i < githubModels.size(); i++) {
+                            githubModels.get(i).setId(new Random().nextLong());
+                        }
+                        insertIntoRoom(githubModels);
+                    }
 
-          @Override
-          public void onError(Throwable e) {
-            setError(e);
-          }
-        }));
-  }
+                    @Override
+                    public void onError(Throwable e) {
+                        setError(e);
+                    }
+                }));
+    }
 
-  void getLocalRepo() {
-      source.setValue(AuthResource.loading(new ArrayList<>()));
-    getCompositeDisposable().add(getDataManager().getRepo()
-        .subscribeOn(getSchedulerProvider().io())
-        .observeOn(getSchedulerProvider().ui())
-        .subscribeWith(new DisposableSingleObserver<List<GithubModel>>() {
-          @Override
-          public void onSuccess(List<GithubModel> githubModels) {
-            if (githubModels.isEmpty()) {
-              getOnlineRepo();
-            } else {
-                source.setValue(AuthResource.success(githubModels));
-            }
-          }
+    void getLocalRepo() {
+        Timber.e("getlocalrepo");
+        source.setValue(AuthResource.loading(new ArrayList<>()));
+        getCompositeDisposable().add(getDataManager().getRepo()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribeWith(new DisposableSingleObserver<List<GithubModel>>() {
+                    @Override
+                    public void onSuccess(List<GithubModel> githubModels) {
+                        if (githubModels.isEmpty()) {
+                            getOnlineRepo();
+                        } else {
+                            source.setValue(AuthResource.success(githubModels));
+                        }
+                    }
 
-          @Override
-          public void onError(Throwable e) {
-            setError(e);
-          }
-        }));
-  }
+                    @Override
+                    public void onError(Throwable e) {
+                        setError(e);
+                    }
+                }));
+    }
 
-  private void insertIntoRoom(List<GithubModel> list) {
-      source.setValue(AuthResource.loading(new ArrayList<>()));
-    getCompositeDisposable().add(getDataManager().insert(list)
-        .subscribeOn(getSchedulerProvider().io())
-        .observeOn(getSchedulerProvider().ui())
-        .subscribeWith(new DisposableCompletableObserver() {
-          @Override
-          public void onComplete() {
-            getLocalRepo();
-          }
+    private void insertIntoRoom(List<GithubModel> list) {
+        source.setValue(AuthResource.loading(new ArrayList<>()));
+        getCompositeDisposable().add(getDataManager().insert(list)
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribeWith(new DisposableCompletableObserver() {
+                    @Override
+                    public void onComplete() {
+                        getLocalRepo();
+                    }
 
-          @Override
-          public void onError(Throwable e) {
-            setError(e);
-          }
-        }));
-  }
+                    @Override
+                    public void onError(Throwable e) {
+                        setError(e);
+                    }
+                }));
+    }
 
-  private void deleteEntries() {
-    getCompositeDisposable().add(getDataManager().deleteAll()
-        .subscribeOn(getSchedulerProvider().io())
-        .observeOn(getSchedulerProvider().ui())
-        .subscribeWith(new DisposableCompletableObserver() {
-          @Override
-          public void onComplete() {
-            //todo
-          }
+    private void deleteEntries() {
+        getCompositeDisposable().add(getDataManager().deleteAll()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribeWith(new DisposableCompletableObserver() {
+                    @Override
+                    public void onComplete() {
+                        //todo
+                    }
 
-          @Override
-          public void onError(Throwable e) {
-            setError(e);
-          }
-        }));
-  }
+                    @Override
+                    public void onError(Throwable e) {
+                        setError(e);
+                    }
+                }));
+    }
 
 }
