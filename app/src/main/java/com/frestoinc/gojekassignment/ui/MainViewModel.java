@@ -16,9 +16,6 @@ import java.util.Random;
 
 import javax.inject.Inject;
 
-import io.reactivex.observers.DisposableCompletableObserver;
-import io.reactivex.observers.DisposableSingleObserver;
-
 /**
  * Created by frestoinc on 31,January,2020 for GoJekAssignment.
  */
@@ -27,13 +24,9 @@ public class MainViewModel extends BaseViewModel {
     private MutableLiveData<AuthResource<List<GithubModel>>> source = new MutableLiveData<>();
 
     @Inject
-    MainViewModel(SchedulerProvider provider, DataManager appDataManager) {
+    public MainViewModel(SchedulerProvider provider, DataManager appDataManager) {
         super(provider, appDataManager);
         getLocalRepo();
-    }
-
-    MainViewModel() {
-        super();
     }
 
     @Override
@@ -54,22 +47,13 @@ public class MainViewModel extends BaseViewModel {
                 .doOnSubscribe(disposable -> doOnLoading())
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribeWith(new DisposableSingleObserver<List<GithubModel>>() {
-                    @Override
-                    public void onSuccess(List<GithubModel> githubModels) {
-                        for (int i = 0; i < githubModels.size(); i++) {
-                            githubModels.get(i).setId(new Random().nextLong());
-                        }
-                        insertIntoRoom(githubModels);
+                .doOnSuccess(githubModels -> {
+                    for (int i = 0; i < githubModels.size(); i++) {
+                        githubModels.get(i).setId(new Random().nextLong());
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        setError(e);
-                    }
-                })
-
-        );
+                    insertIntoRoom(githubModels);
+                }).doOnError(this::setError)
+                .subscribe());
     }
 
     void getLocalRepo() {
@@ -77,22 +61,14 @@ public class MainViewModel extends BaseViewModel {
                 .doOnSubscribe(disposable -> doOnLoading())
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribeWith(new DisposableSingleObserver<List<GithubModel>>() {
-                    @Override
-                    public void onSuccess(List<GithubModel> githubModels) {
-                        if (githubModels.isEmpty()) {
-                            getOnlineRepo();
-                        } else {
-                            doOnSuccess(githubModels);
-                        }
+                .doOnSuccess(githubModels -> {
+                    if (githubModels.isEmpty()) {
+                        getOnlineRepo();
+                    } else {
+                        source.setValue(AuthResource.success(githubModels));
                     }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        setError(e);
-                    }
-                })
-        );
+                }).doOnError(this::setError)
+                .subscribe());
     }
 
     private void insertIntoRoom(List<GithubModel> list) {
@@ -100,17 +76,9 @@ public class MainViewModel extends BaseViewModel {
                 .doOnSubscribe(disposable -> doOnLoading())
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribeWith(new DisposableCompletableObserver() {
-                    @Override
-                    public void onComplete() {
-                        getLocalRepo();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        setError(e);
-                    }
-                }));
+                .doOnComplete(this::getLocalRepo)
+                .doOnError(this::setError)
+                .subscribe());
     }
 
     private void deleteEntries() {
@@ -118,25 +86,12 @@ public class MainViewModel extends BaseViewModel {
                 .doOnSubscribe(disposable -> doOnLoading())
                 .subscribeOn(getSchedulerProvider().io())
                 .observeOn(getSchedulerProvider().ui())
-                .subscribeWith(new DisposableCompletableObserver() {
-                    @Override
-                    public void onComplete() {
-                        //todo
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        setError(e);
-                    }
-                }));
+                .doOnComplete(this::getOnlineRepo).doOnError(this::setError)
+                .subscribe());
     }
 
     private void doOnLoading() {
         source.postValue(AuthResource.loading(null));
-    }
-
-    private void doOnSuccess(List<GithubModel> list) {
-        source.setValue(AuthResource.success(list));
     }
 
 }

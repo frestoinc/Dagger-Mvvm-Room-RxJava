@@ -12,9 +12,9 @@ import io.reactivex.Single;
  */
 public interface RoomHelper {
 
-  Single<List<GithubModel>> getRoomRepo();
+    Single<List<GithubModel>> getRoomRepo();
 
-  Completable insert(List<GithubModel> githubModel);
+    Completable insert(List<GithubModel> githubModel);
 
-  Completable deleteAll();
+    Completable deleteAll();
 }

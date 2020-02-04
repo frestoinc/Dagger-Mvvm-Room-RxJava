@@ -62,7 +62,7 @@ public class GoJekAssignment extends DaggerApplication {
 
     private PeriodicWorkRequest.Builder getBuilder() {
         return new PeriodicWorkRequest.Builder(
-                GithubWorker.class, 20, TimeUnit.MINUTES)
+                GithubWorker.class, 2, TimeUnit.HOURS)
                 .setConstraints(getConstraints())
                 .setInitialDelay(10, TimeUnit.SECONDS);
     }

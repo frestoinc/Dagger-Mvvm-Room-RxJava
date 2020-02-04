@@ -13,16 +13,16 @@ import io.reactivex.Single;
  */
 public class AppGithubRepository implements GithubRepository {
 
-  @Inject
-  public GithubApi api;
+    @Inject
+    public GithubApi api;
 
-  @Inject
-  public AppGithubRepository(GithubApi api) {
-    this.api = api;
-  }
+    @Inject
+    public AppGithubRepository(GithubApi api) {
+        this.api = api;
+    }
 
-  @Override
-  public Single<List<GithubModel>> getRepo() {
-    return api.getRxRepositories();
-  }
+    @Override
+    public Single<List<GithubModel>> getRepo() {
+        return api.getRxRepositories();
+    }
 }

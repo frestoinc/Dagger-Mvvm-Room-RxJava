@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="text_size">12sp</dimen>
-    <dimen name="corner_radius">4dp</dimen>
     <dimen name="icon_size">16dp</dimen>
     <dimen name="error_text_title">18sp</dimen>
     <dimen name="error_text_subtitle">15sp</dimen>

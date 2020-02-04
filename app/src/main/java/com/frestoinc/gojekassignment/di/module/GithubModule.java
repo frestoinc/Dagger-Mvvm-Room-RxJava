@@ -24,46 +24,46 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class GithubModule {
 
-  @AppScope
-  @Provides
-  static GithubApi provideGithubApi(OkHttpClient client) {
-    return new Retrofit.Builder()
-        .baseUrl(Constants.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-        .client(client)
-        .build()
-        .create(GithubApi.class);
-  }
+    @AppScope
+    @Provides
+    static GithubApi provideGithubApi(OkHttpClient client) {
+        return new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(client)
+                .build()
+                .create(GithubApi.class);
+    }
 
-  @AppScope
-  @Provides
-  static OkHttpClient provideOkHttpClient(HttpLoggingInterceptor interceptor) {
-    return new OkHttpClient.Builder()
-        .addInterceptor(interceptor)
-            .addInterceptor(chain -> {
-                Request request = chain.request();
-                return chain.proceed(request);
-            })
-        .connectTimeout(20, TimeUnit.SECONDS)
-        .writeTimeout(20, TimeUnit.SECONDS)
-        .readTimeout(20, TimeUnit.SECONDS)
-        .build();
-  }
+    @AppScope
+    @Provides
+    static OkHttpClient provideOkHttpClient(HttpLoggingInterceptor interceptor) {
+        return new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .addInterceptor(chain -> {
+                    Request request = chain.request();
+                    return chain.proceed(request);
+                })
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(20, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .build();
+    }
 
-  @AppScope
-  @Provides
-  static HttpLoggingInterceptor provideHttpLoggingInterceptor() {
-    return new HttpLoggingInterceptor()
-        .setLevel(HttpLoggingInterceptor.Level.BODY);
-  }
+    @AppScope
+    @Provides
+    static HttpLoggingInterceptor provideHttpLoggingInterceptor() {
+        return new HttpLoggingInterceptor()
+                .setLevel(HttpLoggingInterceptor.Level.BODY);
+    }
 
-  @AppScope
-  @Provides
-  static Gson provideGson() {
-    return new GsonBuilder()
-        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-        .create();
-  }
+    @AppScope
+    @Provides
+    static Gson provideGson() {
+        return new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                .create();
+    }
 
 }

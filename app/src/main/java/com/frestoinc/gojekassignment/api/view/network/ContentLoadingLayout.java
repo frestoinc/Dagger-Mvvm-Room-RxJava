@@ -23,6 +23,13 @@ public class ContentLoadingLayout extends RelativeLayout implements View.OnClick
         super(context);
     }
 
+    /**
+     * Instantiates a new Content loading layout .
+     * {@link com.frestoinc.gojekassignment.api.base.BaseActivity} will call here
+     *
+     * @param context the context
+     * @param attrs   the attrs
+     */
     public ContentLoadingLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -60,11 +67,6 @@ public class ContentLoadingLayout extends RelativeLayout implements View.OnClick
         }
     }
 
-    public interface OnRequestRetryListener {
-
-        void onRequestRetry();
-    }
-
     public void setOnRequestRetryListener(OnRequestRetryListener listener) {
         this.listener = listener;
     }
@@ -74,5 +76,10 @@ public class ContentLoadingLayout extends RelativeLayout implements View.OnClick
         if (listener != null) {
             listener.onRequestRetry();
         }
+    }
+
+    public interface OnRequestRetryListener {
+
+        void onRequestRetry();
     }
 }

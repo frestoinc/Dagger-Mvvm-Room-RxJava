@@ -18,12 +18,12 @@ import io.reactivex.Single;
 @Dao
 public interface GithubModelDao {
 
-  @Insert(onConflict = OnConflictStrategy.REPLACE)
-  Completable insert(List<GithubModel> githubModel);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insert(List<GithubModel> githubModel);
 
-  @Query("DELETE FROM github")
-  Completable deleteAll();
+    @Query("DELETE FROM github")
+    Completable deleteAll();
 
-  @Query("SELECT * from github ORDER BY author ASC")
-  Single<List<GithubModel>> getAllEntries();
+    @Query("SELECT * from github ORDER BY author ASC")
+    Single<List<GithubModel>> getAllEntries();
 }

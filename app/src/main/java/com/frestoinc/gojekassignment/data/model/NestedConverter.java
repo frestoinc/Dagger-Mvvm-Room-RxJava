@@ -14,19 +14,19 @@ import java.util.List;
  */
 public class NestedConverter {
 
-  @TypeConverter
-  public static List<GithubModel.GithubInnerModel> convertToList(String data) {
-    if (data == null) {
-      return Collections.emptyList();
+    @TypeConverter
+    public static List<GithubModel.GithubInnerModel> convertToList(String data) {
+        if (data == null) {
+            return Collections.emptyList();
+        }
+        Type type = new TypeToken<List<GithubModel.GithubInnerModel>>() {
+        }.getType();
+        return new Gson().fromJson(data, type);
     }
-    Type type = new TypeToken<List<GithubModel.GithubInnerModel>>() {
-    }.getType();
-    return new Gson().fromJson(data, type);
-  }
 
-  @TypeConverter
-  public static String convertToString(List<GithubModel.GithubInnerModel> list) {
-    return new Gson().toJson(list);
-  }
+    @TypeConverter
+    public static String convertToString(List<GithubModel.GithubInnerModel> list) {
+        return new Gson().toJson(list);
+    }
 
 }

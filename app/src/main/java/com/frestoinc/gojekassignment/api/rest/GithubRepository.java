@@ -11,6 +11,6 @@ import io.reactivex.Single;
  */
 public interface GithubRepository {
 
-  Single<List<GithubModel>> getRepo();
+    Single<List<GithubModel>> getRepo();
 
 }

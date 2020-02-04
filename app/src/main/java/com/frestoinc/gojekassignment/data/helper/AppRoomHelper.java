@@ -15,26 +15,26 @@ import io.reactivex.Single;
  */
 public class AppRoomHelper implements RoomHelper {
 
-  @Inject
-  public AppRoomDatabase appDatabase;
+    @Inject
+    public AppRoomDatabase appDatabase;
 
-  @Inject
-  public AppRoomHelper(AppRoomDatabase appDatabase) {
-    this.appDatabase = appDatabase;
-  }
+    @Inject
+    public AppRoomHelper(AppRoomDatabase appDatabase) {
+        this.appDatabase = appDatabase;
+    }
 
-  @Override
-  public Single<List<GithubModel>> getRoomRepo() {
-    return appDatabase.modelDao().getAllEntries();
-  }
+    @Override
+    public Single<List<GithubModel>> getRoomRepo() {
+        return appDatabase.modelDao().getAllEntries();
+    }
 
-  @Override
-  public Completable insert(List<GithubModel> githubModel) {
-    return appDatabase.modelDao().insert(githubModel);
-  }
+    @Override
+    public Completable insert(List<GithubModel> githubModel) {
+        return appDatabase.modelDao().insert(githubModel);
+    }
 
-  @Override
-  public Completable deleteAll() {
-    return appDatabase.modelDao().deleteAll();
-  }
+    @Override
+    public Completable deleteAll() {
+        return appDatabase.modelDao().deleteAll();
+    }
 }

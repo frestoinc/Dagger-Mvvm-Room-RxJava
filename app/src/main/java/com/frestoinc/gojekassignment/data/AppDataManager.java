@@ -16,35 +16,35 @@ import io.reactivex.Single;
  */
 public class AppDataManager implements DataManager {
 
-  @Inject
-  RoomHelper roomHelper;
+    @Inject
+    RoomHelper roomHelper;
 
-  @Inject
-  GithubRepository repository;
+    @Inject
+    GithubRepository repository;
 
-  @Inject
-  public AppDataManager(RoomHelper helper, GithubRepository repo) {
-    this.roomHelper = helper;
-    this.repository = repo;
-  }
+    @Inject
+    public AppDataManager(RoomHelper helper, GithubRepository repo) {
+        this.roomHelper = helper;
+        this.repository = repo;
+    }
 
-  @Override
-  public Single<List<GithubModel>> getRepo() {
-    return repository.getRepo();
-  }
+    @Override
+    public Single<List<GithubModel>> getRepo() {
+        return repository.getRepo();
+    }
 
-  @Override
-  public Single<List<GithubModel>> getRoomRepo() {
-    return roomHelper.getRoomRepo();
-  }
+    @Override
+    public Single<List<GithubModel>> getRoomRepo() {
+        return roomHelper.getRoomRepo();
+    }
 
-  @Override
-  public Completable insert(List<GithubModel> githubModel) {
-    return roomHelper.insert(githubModel);
-  }
+    @Override
+    public Completable insert(List<GithubModel> githubModel) {
+        return roomHelper.insert(githubModel);
+    }
 
-  @Override
-  public Completable deleteAll() {
-    return roomHelper.deleteAll();
-  }
+    @Override
+    public Completable deleteAll() {
+        return roomHelper.deleteAll();
+    }
 }

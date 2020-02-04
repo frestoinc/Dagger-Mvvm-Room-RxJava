@@ -8,8 +8,9 @@ import com.frestoinc.gojekassignment.api.network.NetworkState;
 
 /**
  * Created by frestoinc on 09,December,2019 for MailDemo.
+ *
+ * @param <T> the type parameter
  */
-
 public class AuthResource<T> {
 
     @NonNull
@@ -19,24 +20,51 @@ public class AuthResource<T> {
     public final T data;
 
     @Nullable
-    public final String msg;
+    private final String msg;
 
-
-    public AuthResource(@NonNull NetworkState status, @Nullable T data, @Nullable String msg) {
+    /**
+     * Instantiates a new Auth resource.
+     *
+     * @param status the status
+     * @param data   the data
+     * @param msg    the msg
+     */
+    private AuthResource(@NonNull NetworkState status, @Nullable T data, @Nullable String msg) {
         this.status = status;
         this.data = data;
         this.msg = msg;
     }
 
-    public static <T> AuthResource<T> success(@Nullable T data) {
+    /**
+     * Success auth resource.
+     *
+     * @param <T>  the type parameter
+     * @param data the data
+     * @return the auth resource
+     */
+    static <T> AuthResource<T> success(@Nullable T data) {
         return new AuthResource<>(NetworkState.SUCCESS, data, null);
     }
 
+    /**
+     * Error auth resource.
+     *
+     * @param <T> the type parameter
+     * @param msg the msg
+     * @return the auth resource
+     */
     public static <T> AuthResource<T> error(@Nullable String msg) {
         return new AuthResource<>(NetworkState.ERROR, null, msg);
     }
 
-    public static <T> AuthResource<T> loading(@Nullable T data) {
+    /**
+     * Loading auth resource.
+     *
+     * @param <T>  the type parameter
+     * @param data the data
+     * @return the auth resource
+     */
+    static <T> AuthResource<T> loading(@Nullable T data) {
         return new AuthResource<>(NetworkState.LOADING, data, null);
     }
 

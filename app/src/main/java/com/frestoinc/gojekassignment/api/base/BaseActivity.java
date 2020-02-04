@@ -28,83 +28,81 @@ import dagger.android.support.DaggerAppCompatActivity;
 public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseViewModel>
         extends DaggerAppCompatActivity implements NetworkLoader, NetworkReceiver, ContentLoadingLayout.OnRequestRetryListener {
 
-  @Inject
-  ViewModelProviderFactory factory;
+    @Inject
+    ViewModelProviderFactory factory;
 
-  private ContentLoadingLayout loadingContainer;
+    private ContentLoadingLayout loadingContainer;
 
-  private ConnectionTool receiver;
+    private ConnectionTool receiver;
+    private T viewDataBinding;
+    private V viewModel;
 
-  public abstract @LayoutRes
-  int getLayoutId();
+    protected abstract @LayoutRes
+    int getLayoutId();
 
-  public abstract V getViewModel();
+    public abstract V getViewModel();
 
-  private T viewDataBinding;
+    public abstract int getBindingVariable();
 
-  private V viewModel;
-
-  public abstract int getBindingVariable();
-
-  @Override
-  protected void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    receiver = new ConnectionTool(this);
-    setDataBinding();
-  }
-
-  @Override
-  public LoaderUI getNetworkFrameLayout() {
-    return getLoadingContainer();
-  }
-
-  @Override
-  public Context getContext() {
-    return this;
-  }
-
-  private void setDataBinding() {
-    viewDataBinding = DataBindingUtil.setContentView(this, getLayoutId());
-    this.viewModel = viewModel == null ? getViewModel() : viewModel;
-    viewDataBinding.setVariable(getBindingVariable(), viewModel);
-    viewDataBinding.executePendingBindings();
-  }
-
-  public T getViewDataBinding() {
-    return viewDataBinding;
-  }
-
-  public boolean isNetworkConnected() {
-    return ConnectionTool.isNetworkAvailable(getApplicationContext());
-  }
-
-  public ViewModelProviderFactory getFactory() {
-    return factory;
-  }
-
-  public void setLoadingContainer(ContentLoadingLayout loadingContainer) {
-    this.loadingContainer = loadingContainer;
-  }
-
-  private ContentLoadingLayout getLoadingContainer() {
-    if (loadingContainer == null) {
-      throw new RuntimeException("No loadingContainer found");
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        receiver = new ConnectionTool(this);
+        setDataBinding();
     }
-    loadingContainer.setOnRequestRetryListener(this);
-    return loadingContainer;
-  }
 
-  @Override
-  protected void onResume() {
-    super.onResume();
-    registerReceiver(receiver, getNetworkFilter());
-  }
+    @Override
+    public Context getContext() {
+        return this;
+    }
 
-  @Override
-  protected void onPause() {
-    super.onPause();
-    unregisterReceiver(receiver);
-  }
+    @Override
+    public LoaderUI getNetworkFrameLayout() {
+        return getLoadingContainer();
+    }
+
+    private void setDataBinding() {
+        viewDataBinding = DataBindingUtil.setContentView(this, getLayoutId());
+        this.viewModel = viewModel == null ? getViewModel() : viewModel;
+        viewDataBinding.setVariable(getBindingVariable(), viewModel);
+        viewDataBinding.executePendingBindings();
+    }
+
+    public T getViewDataBinding() {
+        return viewDataBinding;
+    }
+
+    public boolean isNetworkConnected() {
+        return ConnectionTool.isNetworkAvailable(getApplicationContext());
+    }
+
+    public ViewModelProviderFactory getFactory() {
+        return factory;
+    }
+
+    private ContentLoadingLayout getLoadingContainer() {
+        if (loadingContainer == null) {
+            throw new RuntimeException("No loadingContainer found");
+        }
+        loadingContainer.setOnRequestRetryListener(this);
+        return loadingContainer;
+    }
+
+    public void setLoadingContainer(ContentLoadingLayout loadingContainer) {
+        this.loadingContainer = loadingContainer;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(receiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(receiver, getNetworkFilter());
+    }
 
     @Override
     public void onNetworkStateChanged(boolean connected) {
@@ -115,18 +113,18 @@ public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseView
         }
     }
 
-  private IntentFilter getNetworkFilter() {
-    final IntentFilter intentFilter = new IntentFilter();
-    intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
-    return intentFilter;
-  }
-
-  @Override
-  public void onBackPressed() {
-    if (getNetworkFrameLayout().getState() == NetworkState.ERROR) {
-      getNetworkFrameLayout().switchToEmpty();
-    } else {
-      super.onBackPressed();
+    private IntentFilter getNetworkFilter() {
+        final IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        return intentFilter;
     }
-  }
+
+    @Override
+    public void onBackPressed() {
+        if (getNetworkFrameLayout().getState() == NetworkState.ERROR) {
+            getNetworkFrameLayout().switchToEmpty();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

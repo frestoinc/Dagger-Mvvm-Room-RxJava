@@ -11,19 +11,18 @@ import android.net.NetworkInfo;
  */
 public class ConnectionTool extends BroadcastReceiver {
 
-    private NetworkReceiver receiver;
+    private final NetworkReceiver receiver;
 
     public ConnectionTool(NetworkReceiver receiver) {
         this.receiver = receiver;
     }
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        if (intent.getAction() != null && intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-            receiver.onNetworkStateChanged(isNetworkAvailable(context));
-        }
-    }
-
+    /**
+     * Check for network availability using {@link ConnectivityManager}.
+     *
+     * @param context the context
+     * @return the boolean
+     */
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -32,5 +31,12 @@ public class ConnectionTool extends BroadcastReceiver {
             activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         }
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if (intent.getAction() != null && intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+            receiver.onNetworkStateChanged(isNetworkAvailable(context));
+        }
     }
 }

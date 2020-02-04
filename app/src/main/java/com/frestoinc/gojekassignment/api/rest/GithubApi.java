@@ -13,6 +13,6 @@ import retrofit2.http.GET;
  */
 public interface GithubApi {
 
-  @GET(Constants.REST_CONSTANT)
-  Single<List<GithubModel>> getRxRepositories();
+    @GET(Constants.REST_CONSTANT)
+    Single<List<GithubModel>> getRxRepositories();
 }

@@ -9,7 +9,7 @@ public class Constants {
 
   public static final String REST_CONSTANT = "repositories";
 
-  public static final String FIELD_ERROR = "Error";
+    private static final String FIELD_ERROR = "Error";
 
   public static final String ROOM_DB = "github.db";
 

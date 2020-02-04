@@ -9,5 +9,5 @@ public interface NetworkLoader {
 
     Context getContext();
 
-  LoaderUI getNetworkFrameLayout();
+    LoaderUI getNetworkFrameLayout();
 }

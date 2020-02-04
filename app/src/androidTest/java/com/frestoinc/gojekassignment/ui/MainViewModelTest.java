@@ -38,6 +38,7 @@ import static org.mockito.Mockito.when;
 /**
  * Created by frestoinc on 03,February,2020 for GoJekAssignment.
  */
+//todo review
 @RunWith(JUnit4.class)
 public class MainViewModelTest {
 
@@ -65,11 +66,11 @@ public class MainViewModelTest {
     List<GithubModel> list = new ArrayList<>();
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         RxAndroidPlugins.setInitMainThreadSchedulerHandler(schedulerCallable -> Schedulers.trampoline());
         lifecycle = new LifecycleRegistry(lifecycleOwner);
-        viewModel = new MainViewModel();
+        viewModel = new MainViewModel(provider, manager);
         viewModel.getSource().observeForever(observer);
     }
 
@@ -81,14 +82,21 @@ public class MainViewModelTest {
     }
 
     @Test
-    public void testNull() throws Exception {
+    public void testAttributes() {
+        assertNotNull(viewModel);
+        assertNotNull(provider);
+        assertNotNull(manager);
+    }
+
+    @Test
+    public void testNull() {
         when(manager.getRepo()).thenReturn(null);
         assertNotNull(viewModel.getSource());
         assertTrue(viewModel.getSource().hasObservers());
     }
 
     @Test
-    public void testOnlineRepo() throws Exception {
+    public void testOnlineRepo() {
         when(manager.getRepo()).thenReturn(Single.just(list));
         viewModel.getOnlineRepo();
         verify(observer).onChanged(AuthResource.loading(null));
@@ -96,7 +104,7 @@ public class MainViewModelTest {
     }
 
     @Test
-    public void testError() throws Exception {
+    public void testError() {
         when(manager.getRepo()).thenReturn(Single.error(new Throwable("test error")));
         viewModel.getOnlineRepo();
         verify(observer).onChanged(AuthResource.loading(null));

@@ -27,6 +27,14 @@ public class GithubWorker extends RxWorker {
     @Inject
     RoomHelper helper;
 
+    /**
+     * Instantiates a custom worker that takes in Retrofit and Room interfaces.
+     *
+     * @param context      the context
+     * @param workerParams the worker params
+     * @param api          the api
+     * @param helper       the helper
+     */
     @Inject
     public GithubWorker(@NonNull Context context, @NonNull WorkerParameters workerParams, GithubApi api, RoomHelper helper) {
         super(context, workerParams);
