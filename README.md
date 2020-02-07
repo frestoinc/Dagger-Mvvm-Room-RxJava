@@ -1,6 +1,6 @@
 # Dagger-Mvvm-Room-RxJava
 
-### Sample application using trending approaches such as Dagger2, Retrofit2, MVVM architecture, Rooom and more.
+### Sample application using trending approaches such as Dagger2, Retrofit2, MVVM architecture, Room and more.
 
 This application will fetch JSON data from [Github trending api](https://github-trending-api.now.sh/repositories), saved in local database (Room) and displayed in RecyclerView.
 
