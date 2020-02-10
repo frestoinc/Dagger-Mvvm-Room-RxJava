@@ -11,11 +11,11 @@
 
         <variable
             name="constant"
-            type="com.frestoinc.gojekassignment.data.Constants" />
+            type="com.frestoinc.sampleapp.data.Constants" />
 
         <variable
             name="model"
-            type="com.frestoinc.gojekassignment.data.model.GithubModel" />
+            type="com.frestoinc.sampleapp.data.model.GithubModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -116,7 +116,7 @@
             app:layout_constraintStart_toStartOf="@+id/vhd_guide2"
             app:layout_constraintTop_toBottomOf="@+id/vhd_author" />
 
-        <com.frestoinc.gojekassignment.api.view.expandable.ExpandableLayout
+        <com.frestoinc.sampleapp.api.view.expandable.ExpandableLayout
             android:id="@+id/vex_expandable"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -220,7 +220,7 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.frestoinc.gojekassignment.api.view.expandable.ExpandableLayout>
+        </com.frestoinc.sampleapp.api.view.expandable.ExpandableLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

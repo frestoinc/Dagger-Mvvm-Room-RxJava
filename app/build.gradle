@@ -28,7 +28,7 @@ android {
     versionProps.store(versionPropsFile.newWriter(), null)
 
     defaultConfig {
-        applicationId "com.frestoinc.gojekassignment"
+        applicationId "com.frestoinc.sampleapp"
         minSdkVersion 19
         targetSdkVersion 29
         versionCode versionNumber

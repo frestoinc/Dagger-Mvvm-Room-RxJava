@@ -8,7 +8,7 @@
 
         <variable
             name="mainViewModel"
-            type="com.frestoinc.gojekassignment.ui.MainViewModel" />
+            type="com.frestoinc.sampleapp.ui.MainViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -24,7 +24,7 @@
             android:id="@+id/content"
             layout="@layout/activity_content" />
 
-        <com.frestoinc.gojekassignment.api.view.network.ContentLoadingLayout
+        <com.frestoinc.sampleapp.api.view.network.ContentLoadingLayout
             android:id="@+id/loadingContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
