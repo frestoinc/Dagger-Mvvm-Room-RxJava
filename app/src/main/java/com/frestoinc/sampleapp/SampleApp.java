@@ -62,13 +62,14 @@ public class SampleApp extends DaggerApplication {
 
     private PeriodicWorkRequest.Builder getBuilder() {
         return new PeriodicWorkRequest.Builder(
-                GithubWorker.class, 2, TimeUnit.HOURS)
+                GithubWorker.class, 4, TimeUnit.HOURS)
                 .setConstraints(getConstraints())
-                .setInitialDelay(10, TimeUnit.SECONDS);
+                .setInitialDelay(0, TimeUnit.SECONDS);
     }
 
     private Constraints getConstraints() {
         return new Constraints.Builder()
+                .setRequiresCharging(true)
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build();
     }
