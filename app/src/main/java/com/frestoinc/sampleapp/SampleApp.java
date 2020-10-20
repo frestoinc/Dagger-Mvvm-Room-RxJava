@@ -1,6 +1,6 @@
 package com.frestoinc.sampleapp;
 
-import android.app.Activity;
+import android.app.Application;
 
 import androidx.work.Configuration;
 import androidx.work.Constraints;
@@ -8,7 +8,6 @@ import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
-import com.frestoinc.sampleapp.di.DaggerAppComponent;
 import com.frestoinc.sampleapp.service.AppGithubWorkerFactory;
 import com.frestoinc.sampleapp.service.GithubWorker;
 
@@ -16,18 +15,14 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjector;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.DaggerApplication;
+import dagger.hilt.android.HiltAndroidApp;
 import timber.log.Timber;
 
 /**
  * Created by frestoinc on 31,January,2020 for SampleApp.
  */
-public class SampleApp extends DaggerApplication {
-
-    @Inject
-    DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
+@HiltAndroidApp
+public class SampleApp extends Application {
 
     @Inject
     AppGithubWorkerFactory factory;
@@ -39,12 +34,7 @@ public class SampleApp extends DaggerApplication {
             Timber.plant(new Timber.DebugTree());
         }
         configureWorkManager();
-        setupPeriodicWork();
-    }
-
-    @Override
-    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
-        return DaggerAppComponent.builder().application(this).build();
+        //setupPeriodicWork();
     }
 
     private void setupPeriodicWork() {

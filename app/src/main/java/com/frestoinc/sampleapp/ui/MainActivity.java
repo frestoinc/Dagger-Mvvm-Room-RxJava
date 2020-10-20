@@ -17,10 +17,14 @@ import com.frestoinc.sampleapp.databinding.ActivityMainBinding;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 /**
  * Created by frestoinc on 31,January,2020 for SampleApp.
  */
-public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements ContentLoadingLayout.OnRequestRetryListener {
+@AndroidEntryPoint
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewModel> implements
+        ContentLoadingLayout.OnRequestRetryListener {
 
     @Inject
     LinearLayoutManager layoutManager;
@@ -45,7 +49,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
     public int getBindingVariable() {
         return com.frestoinc.sampleapp.BR.mainViewModel;
     }
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

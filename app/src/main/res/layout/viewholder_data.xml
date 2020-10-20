@@ -119,7 +119,7 @@
             android:id="@+id/vex_expandable"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:expanded="false"
+            app:expanded="true"
             app:layout_constraintBottom_toBottomOf="@+id/vhd_guide7"
             app:layout_constraintEnd_toEndOf="@id/vhd_guide4"
             app:layout_constraintStart_toEndOf="@+id/vhd_guide2"

@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
@@ -20,13 +21,11 @@ import com.frestoinc.sampleapp.di.module.ViewModelProviderFactory;
 
 import javax.inject.Inject;
 
-import dagger.android.support.DaggerAppCompatActivity;
-
 /**
  * Created by frestoinc on 31,January,2020 for SampleApp.
  */
 public abstract class BaseActivity<T extends ViewDataBinding, V extends BaseViewModel>
-        extends DaggerAppCompatActivity implements NetworkLoader, NetworkReceiver, ContentLoadingLayout.OnRequestRetryListener {
+        extends AppCompatActivity implements NetworkLoader, NetworkReceiver, ContentLoadingLayout.OnRequestRetryListener {
 
     @Inject
     ViewModelProviderFactory factory;

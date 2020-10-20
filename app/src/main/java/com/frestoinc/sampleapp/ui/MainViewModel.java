@@ -16,12 +16,14 @@ import java.util.Random;
 
 import javax.inject.Inject;
 
+import timber.log.Timber;
+
 /**
  * Created by frestoinc on 31,January,2020 for SampleApp.
  */
 public class MainViewModel extends BaseViewModel {
 
-    private MutableLiveData<AuthResource<List<GithubModel>>> source = new MutableLiveData<>();
+    private final MutableLiveData<AuthResource<List<GithubModel>>> source = new MutableLiveData<>();
 
     @Inject
     public MainViewModel(SchedulerProvider provider, DataManager appDataManager) {
@@ -32,7 +34,7 @@ public class MainViewModel extends BaseViewModel {
     @Override
     public void setError(Throwable e) {
         if (BuildConfig.DEBUG) {
-            Log.e("TAG", "Error: " + e);
+            Timber.e(e,"Error");
             e.printStackTrace();
         }
         source.setValue(AuthResource.error(e.getMessage()));

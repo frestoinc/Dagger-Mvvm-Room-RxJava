@@ -40,10 +40,6 @@ public class GithubModule {
     static OkHttpClient provideOkHttpClient(HttpLoggingInterceptor interceptor) {
         return new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
-                /*.addInterceptor(chain -> {
-                    Request request = chain.request();
-                    return chain.proceed(request);
-                })*/
                 .connectTimeout(20, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
